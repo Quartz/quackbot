@@ -1,0 +1,8 @@
+{
+  "name": "slack-slash-command-qzbot-ping",
+  "version": "1.0.0",
+  "description": "qzbot ping",
+  "main": "index.js",
+  "author": "Chris Zarate",
+  "license": "ISC"
+}

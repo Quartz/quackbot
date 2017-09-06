@@ -1,0 +1,20 @@
+{
+  "name": "slack-slash-command-qzbot-router",
+  "version": "1.0.0",
+  "description": "Provides a connector between a Slack slash command and AWS SNS, powered by AWS Lambda",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint **/*.js"
+  },
+  "author": "Chris Zarate",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.45.0",
+    "claudia-api-builder": "^2.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}
