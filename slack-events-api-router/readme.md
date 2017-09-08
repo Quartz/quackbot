@@ -7,7 +7,7 @@ Lambda function or responds to let the user know that something went wrong.
 ## Creating and updating the endpoint
 
 ```
-claudia create --api-module index
+claudia create --api-module index --region us-east-1
 ```
 
 [Claudia][claudia] will print out the endpoint base URL. Append `/messages` to
