@@ -1,0 +1,12 @@
+{
+  "name": "slack-events-api-router",
+  "version": "1.0.0",
+  "description": "Routes events from Slack Events API to other Lambda functions",
+  "main": "index.js",
+  "author": "Chris Zarate",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.45.0",
+    "claudia-api-builder": "^2.4.1"
+  }
+}
