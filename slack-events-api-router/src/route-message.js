@@ -30,7 +30,8 @@ function routeMessage(event) {
   }
 
   if (route.type === 'lambda') {
-    return invokeLambdaFunction(message, route.functionName);
+    console.log(`Routing event to ${route.functionName}....`, event);
+    return invokeLambdaFunction(event, route.functionName);
   }
 
   return Promise.reject('Sorry, I’m having trouble routing your request.');
