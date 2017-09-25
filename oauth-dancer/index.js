@@ -36,8 +36,6 @@ var promiseToSaveAuthorization = function(response){
   console.log(response);
 };
 
-//request({url: "https://www.npr.org"}).then((yay)=>{ console.log("YAY"); console.log(yay)}, (boo)=>{ console.log("BOO"); console.log(boo)})
-
 /*
 
 slack_authorizations:
