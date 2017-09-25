@@ -38,15 +38,10 @@ var promiseToSaveAuthorization = function(response){
 
 /*
 
-slack_authorizations:
+authorizations:
   created_at, DateTime
   details, JSONB
   verified, Boolean
-  verified_by, ???
+  verified_by, Integer
   verified_at, DateTime
-
-admins:
-  id, Serial
-  name, Varchar(255)
-  created_at, DateTime
 */
