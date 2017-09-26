@@ -1,7 +1,9 @@
 const respondOnError = require('../src/respond-on-error');
 const routeMessage = require('../src/route-message');
+const sendToSlack = require('../../lib/slack/messages/slack-send-message');
+const validateTeam = require('../../lib/dcloud/validate-team');
 
-const botName = 'quack';
+const botName = 'quackbot';
 const supportedEventTypes = [
   'message',
   'message.channels',
@@ -12,6 +14,8 @@ function route(api, request) {
     if (typeof request.body !== 'object') {
       throw new Error('Unexepcted request format.');
     }
+
+    console.log(JSON.stringify(request));
 
     // Slack sends a verification token with each request. We use this to verify
     // that the message is really coming from Slack and not someone else that
@@ -44,7 +48,19 @@ function route(api, request) {
       resolve();
       return;
     }
-
+    
+    validateTeam(request.body.event)
+    .then(authorization => {
+    
+        if (!request.body.event.authorization.cleared) {
+            sendToSlack(request.body.event, "I'm still waiting for the folks at DocumentCloud to say you can use my services!", function() {
+                resolve();
+                return;
+            });      
+        }
+        
+    })
+    
     // Extract command words.
     const commandWords = request.body.event.text.trim().split(/\s+/);
 
@@ -68,6 +84,7 @@ function route(api, request) {
     request.body.event.stage = request.context.stage;
 
     routeMessage(request.body.event).catch(respondOnError).then(resolve);
+
   })
   .then(response => {
     // We should respond to Slack with 200 to indicate that we've received the

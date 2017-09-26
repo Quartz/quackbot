@@ -8,5 +8,8 @@
   "dependencies": {
     "aws-sdk": "^2.45.0",
     "claudia-api-builder": "^2.4.1"
+  },
+  "devDependencies": {
+    "claudia": "^2.14.2"
   }
 }
