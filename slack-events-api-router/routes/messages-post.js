@@ -1,7 +1,7 @@
 const respondOnError = require('../src/respond-on-error');
 const routeMessage = require('../src/route-message');
-const sendToSlack = require('../../lib/slack/messages/slack-send-message');
-const validateTeam = require('../../lib/dcloud/validate-team');
+const sendToSlack = require('../src/slack-send-message');
+const validateTeam = require('../src/validate-team');
 
 const botName = 'quackbot';
 const supportedEventTypes = [
