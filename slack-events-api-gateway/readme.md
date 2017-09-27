@@ -96,3 +96,9 @@ Use the same flow for updating *both the router and command functions*:
 
 [app-config]: https://api.slack.com/slack-apps
 [claudia]: https://claudiajs.com
+
+## Repo Note
+
+Note that while this directory is called `slack-events-api-gateway` -- which is an accurate description -- the lambda function it represents is still called `slack-events-api-router`, which is not what it does anymore.
+
+

@@ -1,16 +1,14 @@
-const respondOnError = require('../src/respond-on-error');
-const routeMessage = require('../src/route-message');
-const sendToSlack = require('../src/slack-send-message');
-const validateTeam = require('../src/validate-team');
+const respondOnError = require('./src/respond-on-error');
+const routeMessage = require('./src/route-message');
+const sendToSlack = require('./src/slack-send-message');
+const validateTeam = require('./src/validate-team');
 
-const botName = 'quackbot';
-const botUserID = '<@U75V2FNET>';
 const supportedEventTypes = [
     'message',
     'message.channels',
 ];
 
-exports.handler = (event, context, callback) => {
+exports.handler =  function (event, context, callback) {
     validateTeam(event).then(validation => {
         
         // add the authrization info to the event
@@ -41,15 +39,15 @@ exports.handler = (event, context, callback) => {
 
         return routeMessage(event).catch(respondOnError);
 
-    }); 
     })
     .then(message => {
-      console.log(message);
-      callback(null);
+        console.log(message);
+        callback(null);
     })
     .catch(error => {
     // We should *still* respond to Slack with 200, we'll just log it.
-      console.error(error.message);
-      callback(error);
+        console.error(error.message);
+        callback(error);
     });
-}
+};
+
