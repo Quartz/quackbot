@@ -1,4 +1,4 @@
-function validateTeam(slackEvent) {
+function validateTeam(request) {
     return new Promise((resolve, reject) => {
         
         // here's where we check the team
@@ -7,8 +7,9 @@ function validateTeam(slackEvent) {
         
         /// temporary values for testing
         var validation = {
-            "bearer": process.env.DOCCLOUD_BOT_TOKEN,
-            "cleared": false
+            "bot_access_token": request.env.DOCCLOUD_BOT_TOKEN,
+            "cleared": true,
+            "bot_user_id": "U75V2FNET"
         };
         resolve(validation);
         

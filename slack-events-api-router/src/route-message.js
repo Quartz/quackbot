@@ -2,6 +2,9 @@ const invokeLambdaFunction = require('../src/lambda-invoke-function');
 const supportedCommands = require('../commands');
 
 function routeMessage(event) {
+    
+    console.log("route-message function received .... \n", event);
+    
   // Command verb not found.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {
     return Promise.reject(`Sorry, I don’t know how to respond to “${event.command.verb}.”`);
@@ -30,7 +33,7 @@ function routeMessage(event) {
   }
 
   if (route.type === 'lambda') {
-    console.log(`Routing event to ${route.functionName}....`, event);
+    console.log(`Routing event to ${route.functionName}....\n`, event);
     return invokeLambdaFunction(event, route.functionName);
   }
 
