@@ -20,7 +20,8 @@ exports.handler = function (slackEvent, context, callback) {
     console.log('Received Slack event....', slackEvent);
 
     if (!slackEvent.command.predicate) {
-        callback(new Error('No screenshot URL provided'));
+        sendToSlack(slackEvent, "Oh, you have to specify a website. Try `@quackbot screenshot example.com`");
+        callback(null);
         return;
     }
 
@@ -42,6 +43,7 @@ exports.handler = function (slackEvent, context, callback) {
     })
     .catch(err => {
         console.error(err);
-        callback(new Error('Could not generate screenshot.'));
+        sendToSlack(slackEvent, "Hmmm. Something went awry there.");
+        callback(null);
     });
 };

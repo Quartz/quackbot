@@ -35,3 +35,6 @@ Temporary Items
 # Node Dependencies 
 # (use npm install to load them instead, or see readme)
 node_modules
+
+# Temporary keys
+keys.json

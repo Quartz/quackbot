@@ -1,3 +1,6 @@
+// temporary testing keys
+var keys = require('../keys.json');
+
 function validateTeam(request) {
     return new Promise((resolve, reject) => {
         
@@ -7,7 +10,7 @@ function validateTeam(request) {
         
         /// temporary values for testing
         var validation = {
-            "bot_access_token": request.env.DOCCLOUD_BOT_TOKEN,
+            "bot_access_token": keys.DOCCLOUD_BOT_TOKEN,
             "cleared": true,
             "bot_user_id": "U75V2FNET"
         };
