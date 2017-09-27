@@ -24,7 +24,10 @@ exports.handler = function (slackEvent, context, callback) {
         return;
     }
 
-    const url = slackEvent.command.predicate.replace(/^</, '').replace(/>$/, '');
+    // slack links can arrive like this <http://nyc.gov> 
+    // or this <http://nyc.gov|nyc.gov> ... so pulling out 
+    // the core link in either case:
+    const url = slackEvent.command.predicate.replace(/^</, '').replace(/>$/, '').replace(/\|.*$/, '');
  
     sendToSlack(slackEvent, "One screenshot coming right up! This may take a minute ...");
     
