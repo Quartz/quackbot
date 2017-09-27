@@ -7,7 +7,7 @@ function routeMessage(event) {
     
   // Command verb not found.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {
-    return Promise.reject(`Sorry, I don’t know how to respond to “${event.command.verb}.” Things I can do so far: \n \`\`\`screenshot www.website.com\`\`\``);
+    return Promise.reject(`Sorry, I don’t know how to respond to “${event.command.verb}.” Things I can do so far: \n \`\`\`screenshot www.website.com\ndata crime\`\`\``);
   }
 
   const route = supportedCommands[event.command.verb];

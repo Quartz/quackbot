@@ -33,13 +33,13 @@ exports.handler =  function (event, context, callback) {
 
         if (command_starts_with_me) {
             event.command = {
+                verb: commandWords[1].toLowerCase(),
                 predicate: commandWords.splice(2).join(' '),
-                verb: commandWords[1],
             };
         } else {
             event.command = {
+                verb: commandWords[0].toLowerCase(),
                 predicate: commandWords.splice(1).join(' '),
-                verb: commandWords[0],
             };
         }
 

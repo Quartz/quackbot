@@ -108,6 +108,13 @@ function makeSlackMessage(items) {
     var slack_message = {};
     var attachments = [];
     
+    if (items === undefined || items.length < 1 || !items) {
+        
+        slack_message.text = "Hmmmm ... I couldn't find any data sources matching that term in the list. Try again?";
+        return(slack_message);
+    
+    }
+    
     for (var i = 0; i <  items.length; i ++) {
         
         var item = items[i][0];
@@ -136,7 +143,6 @@ function makeSlackMessage(items) {
     }
     
     slack_message.attachments = attachments;
-    
     return(slack_message);
     
 }
