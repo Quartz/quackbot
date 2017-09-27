@@ -24,6 +24,6 @@
     "sequelize-cli": "^3.0.0"
   },
   "scripts": {
-    "sequelize": "./node_modules/.bin/sequelize --config ../lib/slack/config/config.js --migrations-path ../lib/slack/migrations --models-path ../lib/slack/models"
+    "sequelize": "./node_modules/.bin/sequelize --config lib/config/config.js --migrations-path lib/migrations --models-path lib/models"
   }
 }

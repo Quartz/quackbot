@@ -1,6 +1,6 @@
 var request   = require('request-promise-native');
 var Sequelize = require('sequelize');
-var db        = require('../lib/slack/models/db')(Sequelize);
+var db        = require('./lib/models/db')(Sequelize);
 
 exports.handler = (event, context, callback) => {
   console.log("\nENV: \n" + JSON.stringify(process.env) + "\n\n");
