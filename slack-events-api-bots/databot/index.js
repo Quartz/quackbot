@@ -30,8 +30,8 @@ exports.handler = function(event, context, callback){
     .then((sheet_data) => {
         searchSheet(query, sheet_data, columns_to_search)
         .then(makeSlackMessage)
-        .then((answer) => {
-            sendToSlack(event, answer);
+        .then((message) => {
+            sendToSlack(event, message);
             callback(null, {} );
         });
     })
@@ -105,6 +105,7 @@ function searchSheet(search_query, sheet_data, search_columns) {
 
 function makeSlackMessage(items) {
     
+    var slack_message = {};
     var attachments = [];
     
     for (var i = 0; i <  items.length; i ++) {
@@ -116,13 +117,13 @@ function makeSlackMessage(items) {
             "color": "#36a64f",
             "author_name": item['Source'],
             "title": item['Product'],
-            "title_link": item['URL'],
+            "title_link": item['Product URL'],
             "text": "Coverage: " + item['Coverage'] + "\nGranularity: " + item['Granularity'] + "\n"
         };
 
         // add fallback to the first item only
         if (i == 0) {
-            attach.pretext =  "Here are the top hits. Explore the <" + spreadsheet_published_url + "| full data list here>.";
+            attach.pretext =  "Here are my top matching data sources. Explore the <" + spreadsheet_published_url + "| full source list here>.";
         }
         
         // if there are notes, add them to the text field
@@ -134,6 +135,8 @@ function makeSlackMessage(items) {
         
     }
     
-    return(attachments);
+    slack_message.attachments = attachments;
+    
+    return(slack_message);
     
 }
