@@ -2,6 +2,7 @@ var request   = require('request-promise');
 var Sequelize = require('sequelize');
 var db        = require('./lib/models/db')(Sequelize);
 
+// Ask Slack to provide tokens for us to store and use later.
 var promiseToGetAuthorizationToken = function(code, options={}){
   console.log("Starting Request...");
   return request({
@@ -26,6 +27,17 @@ var promiseToSaveAuthorization = function(responseString){
   );
 };
 
+// Sequelize needs to be instructed to close db connections
+// so that Lambda can exit gracefully
+var promiseToCloseConnections = function(){
+  db.sequelize.sync().then(function() {
+    console.log("handles before:", process._getActiveHandles().length);
+    return db.sequelize.close().then(function() {
+      console.log("handles after:", process._getActiveHandles().length);
+    });
+  });
+};
+
 exports.handler = (event, context, callback) => {
   //console.log("\nENV: \n" + JSON.stringify(process.env) + "\n\n");
   console.log("\nEvent: \n" + JSON.stringify(event) + "\n\n");
@@ -35,7 +47,7 @@ exports.handler = (event, context, callback) => {
     console.log("Declaring Success");
     callback(null, {
       statusCode: 200,
-      body: "Hi! From the API.",
+      body: "Hi! You've added Quackbot to your team!",
       isBase64Encoded: false
     });
   };
@@ -47,9 +59,9 @@ exports.handler = (event, context, callback) => {
   };
   
   var code = event.queryStringParameters.code;
-  //promiseToGetAuthorizationToken(code).then(
-  //  promiseToSaveAuthorization).then(
-  //    function(){ console.log(arguments); }
-  //).then(success);
-  success();
+  Promise.all([
+    promiseToGetAuthorizationToken(code), 
+    promiseToSaveAuthorization, 
+    promiseToCloseConnections
+  ]).then(success, handleError);
 };
