@@ -8,10 +8,10 @@ const config    = require(__dirname + '/../config/config.js')[env];
 
 module.exports = function(Sequelize){
   var sequelize = new Sequelize(config);
-  sequelize.authenticate().then(
-    (win)  => {}, 
-    (fail) => { console.log("Unable to connect to database!"); console.log(fail); 
-  });
+  //sequelize.authenticate().then(
+  //  (win)  => { console.log("Connected to Database"); }, 
+  //  (fail) => { console.log("Unable to connect to database!"); console.log(fail); 
+  //});
 
   var db           = {};
   db.sequelize     = sequelize;
