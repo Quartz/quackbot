@@ -1,0 +1,26 @@
+{
+  "name": "oauth-dancer",
+  "version": "0.0.1",
+  "description": "Slack oAuth callback handler",
+  "main": "index.js",
+  "scripts": {
+    "sequelize": "./node_modules/.bin/sequelize --config lib/config/config.js --migrations-path lib/migrations --models-path lib/models"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quartz/quackbot.git"
+  },
+  "author": "Ted Han",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quartz/quackbot/issues"
+  },
+  "homepage": "https://github.com/Quartz/quackbot#readme",
+  "dependencies": {
+    "pg": "^6.4.2",
+    "request": "^2.82.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "^4.11.1",
+    "sequelize-cli": "^3.0.0"
+  }
+}
