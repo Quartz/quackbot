@@ -59,9 +59,9 @@ exports.handler = (event, context, callback) => {
   };
   
   var code = event.queryStringParameters.code;
-  Promise.all([
-    promiseToGetAuthorizationToken(code), 
-    promiseToSaveAuthorization, 
-    promiseToCloseConnections
-  ]).then(success, handleError);
+  
+  promiseToGetAuthorizationToken(code)
+  .then(promiseToSaveAuthorization)
+  .then(promiseToCloseConnections
+  ).then(success, handleError);
 };
