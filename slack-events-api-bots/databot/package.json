@@ -1,0 +1,23 @@
+{
+  "name": "quack-search-sheet",
+  "version": "1.0.0",
+  "description": "Search a Google spreadsheet from Slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "John Keefe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quartz/botstudio-search-sheet/issues"
+  },
+  "homepage": "https://github.com/Quartz/botstudio-search-sheet#readme",
+  "dependencies": {
+    "fuzzball": "^0.12.2",
+    "tabletop": "^1.5.2"
+  },
+  "devDependencies": {
+    "claudia": "^2.14.2"
+  }
+}
