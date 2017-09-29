@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     verified_by: { type: DataTypes.INTEGER },
     verified_at: { type: DataTypes.TIME },
   }, { 
-    define: { timestamps: true }
+    define: { timestamps: true },
+    underscored: true
   });
   return Team;
 };

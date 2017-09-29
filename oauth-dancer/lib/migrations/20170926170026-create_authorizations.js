@@ -10,11 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       details: Sequelize.JSONB,
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
