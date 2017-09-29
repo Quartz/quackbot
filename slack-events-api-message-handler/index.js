@@ -43,7 +43,7 @@ exports.handler =  function (event, context, callback) {
         }
         
         // handle file uploads - TODO make sure this works 
-        if (!is_direct_message_to_me && event.subtype == 'file_share') {
+        if (is_direct_message_to_me && event.subtype == 'file_share') {
             event.command = {
                 verb: event.file.filetype,
                 predicate: event.file.url_private
