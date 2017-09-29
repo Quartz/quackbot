@@ -23,7 +23,10 @@ var promiseToSaveAuthorization = function(responseString){
   
   console.log("Looking up Team by slack_id: " + response.team_id);
   return db.team.findOrCreate({ where: { slack_id: response.team_id } }).spread(
-    (team, created) => { return db.authorization.create({ details: response }); }
+    (team, created) => { 
+      return db.authorization.create({ details: response })
+      .then( (auth)=>{ return team.addAuthorization(auth); } );
+    }
   );
 };
 
