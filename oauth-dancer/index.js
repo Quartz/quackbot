@@ -1,6 +1,6 @@
 var request   = require('request-promise');
 var Sequelize = require('sequelize');
-var db        = require('./lib/models/db')(Sequelize);
+var TeamStore = require('./lib/models/db');
 
 // Ask Slack to provide tokens for us to store and use later.
 var promiseToGetAuthorizationToken = function(code, options={}){
@@ -22,11 +22,8 @@ var promiseToSaveAuthorization = function(responseString){
   console.log(JSON.stringify(response));
   
   console.log("Looking up Team by slack_id: " + response.team_id);
-  return db.team.findOrCreate({ where: { slack_id: response.team_id } }).spread(
-    (team, created) => {
-      return db.authorization.create({ details: response })
-      .then( (auth)=>{ return team.addAuthorization(auth); } );
-    }
+  return db.Team.findOrCreate({ where: { slack_id: response.team_id } }).spread(
+    (team, created) => { return db.Authorization.create({ team_id: team.id, details: response }); }
   );
 };
 
@@ -63,8 +60,10 @@ exports.handler = (event, context, callback) => {
   
   var code = event.queryStringParameters.code;
   
+  db = new TeamStore(Sequelize);
+  
   promiseToGetAuthorizationToken(code)
   .then(promiseToSaveAuthorization)
-  .then(promiseToCloseConnections
-  ).then(success, handleError);
+  .then(promiseToCloseConnections)
+  .then(success, handleError);
 };
