@@ -13,10 +13,16 @@ module.exports = function(Sequelize){
   //  (fail) => { console.log("Unable to connect to database!"); console.log(fail); 
   //});
 
-  var db           = {};
-  db.sequelize     = sequelize;
-  db.team          = require(__dirname+'/team')(sequelize, Sequelize);
-  db.authorization = require(__dirname+'/authorization')(sequelize, Sequelize);
+  var db            = {};
+  db.sequelize      = sequelize;
+  var Team          = require(__dirname+'/team')(sequelize, Sequelize);
+  var Authorization = require(__dirname+'/authorization')(sequelize, Sequelize);
+  
+  Team.hasMany(Authorization);
+  Authorization.belongsTo(Team);
+  
+  db.team           = Team;
+  db.authorization  = Authorization;
   
   return db;
 };

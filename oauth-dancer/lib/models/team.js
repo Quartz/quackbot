@@ -20,5 +20,13 @@ module.exports = (sequelize, DataTypes) => {
     define: { timestamps: true },
     underscored: true
   });
+  
+  Team.prototype.latestAuthorization = function() {
+    return this.getAuthorizations({ 
+      limit:1, 
+      order:[["created_at","desc"]]
+    });
+  };
+  
   return Team;
 };
