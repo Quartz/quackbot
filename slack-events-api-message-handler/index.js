@@ -3,10 +3,8 @@ const routeMessage = require('./src/route-message');
 const sendToSlack = require('./src/slack-send-message');
 const validateTeam = require('./src/validate-team');
 
-
-
 exports.handler =  function (event, context, callback) {
-    validateTeam(event).then(validation => {
+    validateTeam(event.body).then(validation => {
         
         // bail if not validated
         if (!validation.cleared) {
@@ -17,7 +15,7 @@ exports.handler =  function (event, context, callback) {
         
         // add the authrization info to the event
         event.authorization = validation;
-        
+
         // Extract command words.
         const commandWords = event.text.trim().split(/\s+/);
         
@@ -25,12 +23,13 @@ exports.handler =  function (event, context, callback) {
         // or an @-mention at the start of a line.
         
         var is_direct_message_to_me = event.channel.match(/^D*/)[0] == "D";
+        
         var command_starts_with_me = (commandWords[0] == `<@${event.authorization.bot_user_id}>`);
         
         if (!is_direct_message_to_me && !command_starts_with_me) {
             return 'Ignoring message that is none of my beeswax, bye!';
         }
-
+        
         if (command_starts_with_me) {
             event.command = {
                 verb: commandWords[1].toLowerCase(),
@@ -40,6 +39,14 @@ exports.handler =  function (event, context, callback) {
             event.command = {
                 verb: commandWords[0].toLowerCase(),
                 predicate: commandWords.splice(1).join(' '),
+            };
+        }
+        
+        // handle file uploads - TODO make sure this works 
+        if (!is_direct_message_to_me && event.subtype == 'file_share') {
+            event.command = {
+                verb: event.file.filetype,
+                predicate: event.file.url_private
             };
         }
 

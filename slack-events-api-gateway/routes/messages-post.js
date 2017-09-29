@@ -2,8 +2,7 @@ const invokeLambdaFunction = require('../src/lambda-invoke-function');
 
 const supportedEventTypes = [
     'message',
-    'message.channels',
-    'file_shared',
+    'message.channels'
 ];
 
 function route(api, request) {
@@ -44,7 +43,7 @@ function route(api, request) {
         }
 
         // Skip altered messages for now to avoid bot confusion
-        if (request.body.event.hasOwnProperty('subtype')) {
+        if (request.body.event.hasOwnProperty('subtype') && request.body.event.subtype == 'message') {
             console.log(`Subtype of "${request.body.event.subtype}" suggests a modified message. Skipping.`);
             resolve();
             return;
