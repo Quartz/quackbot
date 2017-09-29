@@ -17,7 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     verified_by: { type: DataTypes.INTEGER },
     verified_at: { type: DataTypes.TIME },
   }, { 
-    define: { timestamps: true }
+    define: { timestamps: true },
+    underscored: true
   });
+  
+  Team.prototype.latestAuthorization = function() {
+    return this.getAuthorizations({ 
+      limit:1, 
+      order:[["created_at","desc"]]
+    });
+  };
+  
   return Team;
 };
