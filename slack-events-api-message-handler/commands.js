@@ -11,4 +11,10 @@ module.exports = {
         usage: 'data agriculture',
         description: 'Searches Christopher Groskopf\'s spreadsheet of good data sources.',
     },
+    archive: {
+        type: 'lambda',
+        functionName: 'quackbot-archive-bot',
+        usage: 'archive <url>',
+        description: 'Save a URL to the Internet Archive.',
+    }
 };
