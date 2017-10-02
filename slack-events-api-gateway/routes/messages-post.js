@@ -64,6 +64,7 @@ function route(api, request) {
         // Also add the stage's environment variables to the message so 
         // we use the right database and all
         request.body.event.env = request.env;
+        request.body.event.team_id = request.body.team_id;
 
         // Invoke router Lambda function.
         resolve(invokeLambdaFunction(request.body.event, 'slack-events-api-message-handler'));
