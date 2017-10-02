@@ -8,7 +8,7 @@ var db        = require('./lib/models/db')(Sequelize);
 
 
 exports.handler =  function (event, context, callback) {
-    db.team.findOne({ where: { slack_id: event.team_id } })
+    db.Team.findOne({ where: { slack_id: event.team_id } })
     .then( (team) => {
         if (team === null) {
             // bail.  We somehow got a message from a team
