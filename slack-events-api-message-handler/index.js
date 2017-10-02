@@ -4,10 +4,9 @@ const sendToSlack = require('./src/slack-send-message');
 
 // const validateTeam = require('./src/validate-team');
 var Sequelize = require('sequelize');
-var db        = require('./lib/models/db')(Sequelize);
-
 
 exports.handler =  function (event, context, callback) {
+    var db        = require('./lib/models/db')(Sequelize);
     db.Team.findOne({ where: { slack_id: event.team_id } })
     .then( (team) => {
         if (team === null) {
@@ -66,6 +65,16 @@ exports.handler =  function (event, context, callback) {
             );
         }
     })
+    .then(
+        function(){
+            db.sequelize.sync().then(function() {
+                console.log("handles before:", process._getActiveHandles().length);
+                return db.sequelize.close().then(function() {
+                  console.log("handles after:", process._getActiveHandles().length);
+                });
+              });
+        }
+    )
     .then(message => {
         console.log(message);
         callback(null);
