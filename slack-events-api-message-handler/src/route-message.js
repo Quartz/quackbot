@@ -5,9 +5,19 @@ function routeMessage(event) {
     
     console.log("route-message function received .... \n", event);
     
+  // Throughout, event.command.verb becomes event.nlp.action
+  
+  // HERE DO sendToSlack(event.nlp.fulfillment.speech)
+  
+  
+  // if there's no event.nlp.action or it doesn't match the list of
+  // commands then return silently here, letting the fulfillment speech
+  // stand on its own.
+  // return Promise.resolve();
+    
   // Command verb not found.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {
-    return Promise.reject(`Sorry, I don’t know how to respond to “${event.command.verb}.” Things I can do so far: \n \`\`\`screenshot www.website.com\ndata crime\`\`\``);
+    return Promise.reject(`Oops ... I'm not actually ready to handle a “${event.command.verb}" request yet. Sorry!`);
   }
 
   const route = supportedCommands[event.command.verb];

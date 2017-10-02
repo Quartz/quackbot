@@ -30,6 +30,7 @@ exports.handler =  function (event, context, callback) {
             return 'Ignoring message that is none of my beeswax, bye!';
         }
         
+        /////// delete this next if statment
         if (command_starts_with_me) {
             event.command = {
                 verb: commandWords[1].toLowerCase(),
@@ -50,6 +51,12 @@ exports.handler =  function (event, context, callback) {
             };
         }
 
+        /////// Add NLP check here
+        // add returnJSON.result to event as event.nlp
+        // event.command.verb becomes event.nlp.action
+        // also here do sendToSlack(event.nlp.fulfillment.speech)
+        
+
         console.log(`Event posted to ${event.stage} stage with verb '${event.command.verb}' and predicate '${event.command.predicate}'.`);
 
         return routeMessage(event).catch((message) => respondOnError(event, message) );
@@ -61,7 +68,7 @@ exports.handler =  function (event, context, callback) {
     })
     .catch(error => {
         console.error(error.message);
-        callback(error);
+        callback(null);
     });
 };
 
