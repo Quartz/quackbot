@@ -8,23 +8,25 @@ var responder = function(event, context, callback){
             // bail.  We somehow got a message from a team
             // that didn't install the bot.
         } else {
-            var authorization = team.authorization();
-            
-            var bot_details      = authorization.details.bot;
-            var bot_access_token = bot_details.bot_access_token;
-            var bot_user_id      = bot_details.bot_user_id;
-            
-            // Tell the team they're not cool enough.
-            if (!team.verified) {
-                console.log('Team not yet validated by DocumentCloud. Informing user ...');
-                var message = "I'm still waiting for the folks at DocumentCloud to say you can use my services!";
-                //return sendToSlack(event, message);
-            } else {
-                // add the authorization info to the event
-                console.log('Team Verified, handling message');
-                event.authorization = authorization;
-                //return respondToSlackMessage( event, context, callback);
-            }
+            team.latestAuthorization().then(
+                (authorization) => {
+                    var bot_details      = authorization.details.bot;
+                    var bot_access_token = bot_details.bot_access_token;
+                    var bot_user_id      = bot_details.bot_user_id;
+                    
+                    // Tell the team they're not cool enough.
+                    if (!team.verified) {
+                        console.log('Team not yet validated by DocumentCloud. Informing user ...');
+                        var message = "I'm still waiting for the folks at DocumentCloud to say you can use my services!";
+                        //return sendToSlack(event, message);
+                    } else {
+                        // add the authorization info to the event
+                        console.log('Team Verified, handling message');
+                        event.authorization = authorization;
+                        //return respondToSlackMessage( event, context, callback);
+                    }
+                }
+            );
         }
     })
     .then(message => {
