@@ -20,7 +20,7 @@ exports.handler =  function (event, context, callback) {
                 (authorization) => {
                     
                     // add the authorization info to the event
-                    event.authorization = authorization.details.bot;
+                    event.authorization = authorization.details[0].bot;
                     
                     // Tell the team they're not cool enough.
                     if (!team.verified) {
