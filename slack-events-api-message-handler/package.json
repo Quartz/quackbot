@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "claudia": "^2.14.2",
-    "pg": "^7.3.0",
+    "pg": "^6.4.2",
     "sequelize": "^4.13.2"
   },
   "devDependencies": {
