@@ -1,8 +1,8 @@
 const respondOnError = require('./src/respond-on-error');
 const routeMessage = require('./src/route-message');
 const sendToSlack = require('./src/slack-send-message');
+const processWithNLP = require('./src/process-with-nlp');
 
-// const validateTeam = require('./src/validate-team');
 var Sequelize = require('sequelize');
 
 exports.handler =  function (event, context, callback) {
@@ -53,28 +53,22 @@ exports.handler =  function (event, context, callback) {
                             };
                         }
                         
-
-                        /////// Add NLP check here
-                        // add returnJSON.result to event as event.nlp
-                        // event.command.verb becomes event.nlp.action
-                        // also here do sendToSlack(event.nlp.fulfillment.speech)
-
-                        // this goes
-                        if (command_starts_with_me) {
-                            event.command = {
-                                verb: commandWords[1].toLowerCase(),
-                                predicate: commandWords.splice(2).join(' '),
-                            };
-                        } else {
-                            event.command = {
-                                verb: commandWords[0].toLowerCase(),
-                                predicate: commandWords.splice(1).join(' '),
-                            };
-                        }
-
-                        console.log(`Event posted to ${event.stage} stage with verb '${event.command.verb}' and predicate '${event.command.predicate}'.`);
-
-                        return routeMessage(event).catch((message) => respondOnError(event, message) );
+                        // process the human's request with natural language processing
+                        return processWithNLP(event)
+                        .then(nlpResult => {
+                            
+                            event.nlp = nlpResult;
+                            
+                            // copying to command object for existing bots
+                            event.command.verb = event.nlp.action || null;
+                            event.command.predicate = event.nlp.parameters.url || event.nlp.parameters.topic || null;
+                            
+                            sendToSlack(event, event.nlp.fulfillment.speech);
+                            
+                            console.log(`Event posted to ${event.stage} stage with\nverb '${event.command.verb}'\npredicate ${event.command.predicate}.`);
+                            
+                            return routeMessage(event).catch((message) => respondOnError(event, message) );
+                        });
                     }
                 }
             );

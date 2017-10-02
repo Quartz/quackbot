@@ -15,10 +15,7 @@ exports.handler = function(slackEvent, context, callback){
         return;
     }
     
-    // slack links can arrive like this <http://nyc.gov> 
-    // or this <http://nyc.gov|nyc.gov> ... so pulling out 
-    // the core link in either case:
-    const website = slackEvent.command.predicate.replace(/^</, '').replace(/>$/, '').replace(/\|.*$/, '');
+    const website = slackEvent.command.predicate;
     
     const requestUrl = `https://web.archive.org/save/${website}`;
     // 
