@@ -1,6 +1,7 @@
 const respondOnError = require('./src/respond-on-error');
 const routeMessage = require('./src/route-message');
 const sendToSlack = require('./src/slack-send-message');
+
 // const validateTeam = require('./src/validate-team');
 var Sequelize = require('sequelize');
 var db        = require('./lib/models/db')(Sequelize);
@@ -67,7 +68,7 @@ exports.handler =  function (event, context, callback) {
     })
     .catch(error => {
         console.error(error.message);
-        callback(error);
+        callback(null);
     });
 };
 
