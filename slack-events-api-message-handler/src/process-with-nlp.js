@@ -1,4 +1,5 @@
 const request = require('request');
+const qs = require('querystring');
 
 // This function requires the original event since replying in the same channel
 // is the only supported flow.
@@ -13,23 +14,26 @@ function processWithNLP(slackEvent) {
         // also remove users and channels <@UABC123555>
         // even at the end of a line
         // and trim
-        const text_to_send = slackEvent.text.replace(/\|.*>/,'').replace(/<http/,'http').replace(/<\S*>[ $]?/,'').trim();
-        
-        const auth = "Bearer " + slackEvent.env.API_AI_TOKEN;
-        
-        request.post({
-            headers: {
-                'Authorization': auth,
-                'Content-Type':'application/json; charset=utf-8'
-            },
+        const text_to_send = slackEvent.message.text.replace(/\|.*>/,'').replace(/<http/,'http').replace(/<\S*>[ $]?/,'').trim();
+            
+        const query = qs.stringify({
+            "query": text_to_send,
+            "timezone": "America/New_York",
+            "lang": "en",
+            "sessionId": slackEvent.message.user
+        });  
+                
+        const options = {
             url:'https://api.api.ai/v1/query?v=20150910',
-            body:{
-                "query": text_to_send,
-                "timezone": "America/New_York",
-                "lang": "en",
-                "sessionId": slackEvent.user
-            }
-        }, function(error, response, body){
+            method: 'GET',
+            auth: {
+                bearer: slackEvent.env.API_AI_TOKEN
+            },
+            qs: query
+
+        };
+        
+        request(options, function(error, response, body){
             
             if (error) {
                 reject(null);

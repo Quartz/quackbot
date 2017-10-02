@@ -32,8 +32,10 @@ exports.handler =  function (event, context, callback) {
 
                         console.log('Team Verified, handling message');
 
+                        console.log('Event is:', event);
+
                         // Extract command words.
-                        const commandWords = event.text.trim().split(/\s+/);
+                        const commandWords = event.message.text.trim().split(/\s+/);
                         
                         // To reach the bot, it must be a DM (in a "D" channel)
                         // or an @-mention at the start of a line.
