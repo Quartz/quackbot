@@ -45,8 +45,13 @@ exports.handler =  function (event, context, callback) {
                             return 'Ignoring message that is none of my beeswax, bye!';
                         }
                         
-                        // add file check here
-                        
+                        // handle file uploads - TODO make sure this works 
+                        if (is_direct_message_to_me && event.subtype == 'file_share') {
+                            event.command = {
+                                verb: event.file.filetype,
+                                predicate: event.file.url_private
+                            };
+                        }
                         
 
                         /////// Add NLP check here
