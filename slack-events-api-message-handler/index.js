@@ -44,7 +44,17 @@ exports.handler =  function (event, context, callback) {
                         if (!is_direct_message_to_me && !command_starts_with_me) {
                             return 'Ignoring message that is none of my beeswax, bye!';
                         }
+                        
+                        // add file check here
+                        
+                        
 
+                        /////// Add NLP check here
+                        // add returnJSON.result to event as event.nlp
+                        // event.command.verb becomes event.nlp.action
+                        // also here do sendToSlack(event.nlp.fulfillment.speech)
+
+                        // this goes
                         if (command_starts_with_me) {
                             event.command = {
                                 verb: commandWords[1].toLowerCase(),
