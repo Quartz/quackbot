@@ -19,8 +19,10 @@ exports.handler =  function (event, context, callback) {
             team.latestAuthorization().then(
                 (authorization) => {
                     
+                    console.log("Authorization is \n", JSON.stringify(authorization));
+                    
                     // add the authorization info to the event
-                    event.authorization = authorization.details[0].bot;
+                    event.authorization = authorization[0].details.bot;
                     
                     // Tell the team they're not cool enough.
                     if (!team.verified) {
