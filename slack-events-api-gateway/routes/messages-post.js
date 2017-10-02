@@ -60,6 +60,10 @@ function route(api, request) {
         // route the message.
         console.log(`Incoming event sent to ${request.context.stage} stage.`);
         request.body.event.stage = request.context.stage;
+        
+        // Also add the stage's environment variables to the message so 
+        // we use the right database and all
+        request.body.event.env = request.env;
 
         // Invoke router Lambda function.
         resolve(invokeLambdaFunction(request.body.event, 'slack-events-api-message-handler'));
