@@ -19,15 +19,17 @@ exports.handler =  function (event, context, callback) {
             team.latestAuthorization().then(
                 (authorization) => {
                     
+                    // add the authorization info to the event
+                    event.authorization = authorization.details.bot;
+                    
                     // Tell the team they're not cool enough.
                     if (!team.verified) {
                         console.log('Team not yet validated by DocumentCloud. Informing user ...');
                         var message = "Hi! I'm still waiting for the folks at DocumentCloud to say you can use my services. I'll let you know when we're ready to go.";
                         return sendToSlack(event, message);
                     } else {
-                        // add the authorization info to the event
+
                         console.log('Team Verified, handling message');
-                        event.authorization = authorization.details.bot;
 
                         // Extract command words.
                         const commandWords = event.text.trim().split(/\s+/);
