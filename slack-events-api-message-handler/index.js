@@ -12,10 +12,10 @@ exports.handler =  function (event, context, callback) {
         if (team === null) {
             // bail.  We somehow got a message from a team
             // that didn't install the bot.
-            console.log("We somehow got a message from a team that didn't install Quackbot.");
-            return null;
+            return ("We somehow got a message from a team that didn't install Quackbot.");
+            
         } else {
-            team.latestAuthorization().then(
+            return team.latestAuthorization().then(
                 (authorization) => {
                     
                     console.log("Authorization is \n", JSON.stringify(authorization));
@@ -68,11 +68,11 @@ exports.handler =  function (event, context, callback) {
     .then(
         function(){
             db.sequelize.sync().then(function() {
-                console.log("handles before:", process._getActiveHandles().length);
+                // console.log("handles before:", process._getActiveHandles().length);
                 return db.sequelize.close().then(function() {
-                  console.log("handles after:", process._getActiveHandles().length);
+                  // console.log("handles after:", process._getActiveHandles().length);
                 });
-              });
+            });
         }
     )
     .then(message => {
