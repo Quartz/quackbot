@@ -8,7 +8,7 @@ var db        = require('./lib/models/db')(Sequelize);
 
 exports.handler =  function (event, context, callback) {
     db.team.findOne({ where: { slack_id: event.team_id } })
-    .then( team => {
+    .then( (team) => {
         if (team === null) {
             // bail.  We somehow got a message from a team
             // that didn't install the bot.
