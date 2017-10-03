@@ -30,7 +30,7 @@ These steps are what we follow, and some require AWS rights you probably don't h
     }
     ```
 
-### Deploy using Claudia
+### Make Lambda function using Claudia
 
 - Install Claudia using `npm install claudia --dev-save`
 - Make sure all the other packages are installed with `npm install`
@@ -43,16 +43,34 @@ These steps are what we follow, and some require AWS rights you probably don't h
 claudia create --region us-east-1 --handler index.handler --name quackbot-cliches --role quackbot-cliches-executor
 ```
 - Note that if the bot is big, you may have to side-load it from an AWS bucket with `--use-s3-bucket [bucket_name]`
-
+- Commit the code to the `quackbot` repo
 
 ### Wire it to Quackbot
 
-- Edit `slack-events-api-message-handler/commands.js` to add the bot
-- Back at AWS under IAM Policies, add the bot's ARN as a "Resource" in the IAM policy called `quackbot-invoke-lambda-us-east-1`
-- 
+- Edit `slack-events-api-message-handler/commands.js` to add to Quackbot's abilities. Note that the property label used ahead of the data must match the "action" supplied by the natural language processor. So here, it's `cliches`.
+    ```
+    cliches: {
+        type: 'lambda',
+        functionName: 'quackbot-cliches',
+        usage: 'Look for cliches on <url>',
+        descrition: 'Scan a web page for cliches.'
+    }
+    ```
+- Back at AWS under IAM Policies, add the bot's ARN as a "Resource" in the IAM policy called `quackbot-invoke-all-subbots`
+- Update the `slack-events-api-message-handler` using `claudia update`
 
 ### Prepare the Natural Language Processor
 
-- Train our [API.ai](http://API.ai) agent to send the bot's name as an ACTION and any additional parameters given a user's natural language input. So "please send me a screenshot of https://qz.com" becomes a "screenshot" action with "https://qz.com" as the url parameter. Note that the action must match the command in `slack-events-api-message-handler/commands.js`.
+- Train our [API.ai](http://API.ai) agent to send the bot's name as an ACTION and any additional parameters given a user's natural language input. So "please send me a screenshot of https://qz.com" becomes a "screenshot" action with "https://qz.com" as the url parameter. Note that the action must match the bot's property label in `slack-events-api-message-handler/commands.js`. (See example above using `cliches`.)
 - If the parameter provided by API.ai isn't "url" or "topic" you need to add the new type as a possible `event.command.predicate` in the code at `slack-events-api-message-handler/index.js` (TODO: Abstract this.)
+
+### Test and deploy
+
+- Test in our test Slack account
+- Check the logs
+- Try again
+- Check the logs
+- Fix that thing
+- Check the logs
+- Deploy by pushing both the bot's lambda function and `slack-events-api-message-handler` to `prod`.
 

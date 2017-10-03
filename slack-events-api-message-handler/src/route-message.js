@@ -1,19 +1,8 @@
 const invokeLambdaFunction = require('../src/lambda-invoke-function');
-const supportedCommands = require('../commands');
 
 function routeMessage(event) {
-    
-    console.log("route-message function received .... \n", event);
-    
-  // Throughout, event.command.verb becomes event.nlp.action
-  
-  // HERE DO sendToSlack(event.nlp.fulfillment.speech)
-  
-  
-  // if there's no event.nlp.action or it doesn't match the list of
-  // commands then return silently here, letting the fulfillment speech
-  // stand on its own.
-  // return Promise.resolve();
+ 
+  const supportedCommands = require('../commands');
     
   // Command verb not found.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {

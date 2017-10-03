@@ -16,5 +16,11 @@ module.exports = {
         functionName: 'quackbot-archive-bot',
         usage: 'archive <url>',
         description: 'Save a URL to the Internet Archive.',
+    },
+    cliches: {
+        type: 'lambda',
+        functionName: 'quakcbot-cliches',
+        usage: 'Look for cliches on <url>',
+        descrition: 'Scan a web page for cliches.'
     }
 };
