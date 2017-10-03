@@ -19,7 +19,7 @@ module.exports = {
     },
     cliches: {
         type: 'lambda',
-        functionName: 'quakcbot-cliches',
+        functionName: 'quackbot-cliches',
         usage: 'Look for cliches on <url>',
         descrition: 'Scan a web page for cliches.'
     }
