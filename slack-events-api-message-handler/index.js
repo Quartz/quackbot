@@ -35,7 +35,7 @@ exports.handler =  function (event, context, callback) {
                         console.log('Event is:', event);
 
                         // Extract command words.
-                        const commandWords = event.message.text.trim().split(/\s+/);
+                        const commandWords = event.text.trim().split(/\s+/);
                         
                         // To reach the bot, it must be a DM (in a "D" channel)
                         // or an @-mention at the start of a line.
@@ -62,6 +62,7 @@ exports.handler =  function (event, context, callback) {
                             event.nlp = nlpResult;
                             
                             // copying to command object for existing bots
+                            event.command = {};
                             event.command.verb = event.nlp.action || null;
                             event.command.predicate = event.nlp.parameters.url || event.nlp.parameters.topic || null;
                             
