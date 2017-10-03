@@ -21,8 +21,7 @@ exports.handler = function(event, context, callback){
             return;
         }
         
-        var page = unfluff(body);
-        console.log(page.text);    
+        var page = unfluff(body); 
         
         var allPromise = Promise.all([
             checkDataFile('681cliches', page),
@@ -33,7 +32,7 @@ exports.handler = function(event, context, callback){
         allPromise.then(function(){
             // console.log("all checked");
             var reply = replyWith(cliche_list);
-            console.log(reply);
+            console.log("Replying to user.");
             sendToSlack(event, reply);
             callback(null, {} );
         })
@@ -69,13 +68,11 @@ function checkDataFile(file, page){
                     
                     // add the match string to the global list of cliches so far
                     cliche_list.push(matches[0]);
-                    console.log("matched ", matches[0], " in ", file);
                     
                 }   
                          
             })
             .on("end", function(){
-                // console.log(file + " done");
                 return resolve();
             })
             .on("error", function(error){
