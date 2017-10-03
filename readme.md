@@ -43,7 +43,7 @@ If you have a tool you've made that you'd like to incorporate, even better! Defi
 
 ## Privacy and security notes
 
-In short, Quackbot only "listens" to direct messages and channels to which it has been invited. And in public channels it's invited to, only pays attention to messages that begin with `@quackbot`.
+In short, Quackbot only "listens" to direct messages and channels to which it has been invited. And in those channels, it only pays attention to messages that begin with `@quackbot`.
 
 Here's the long version:
 
