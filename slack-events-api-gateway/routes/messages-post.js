@@ -43,7 +43,7 @@ function route(api, request) {
         }
 
         // Skip altered messages for now to avoid bot confusion
-        if (request.body.event.hasOwnProperty('subtype') && request.body.event.subtype == 'message') {
+        if (request.body.event.hasOwnProperty('subtype') && request.body.event.subtype == 'message_changed') {
             console.log(`Subtype of "${request.body.event.subtype}" suggests a modified message. Skipping.`);
             resolve();
             return;
