@@ -35,6 +35,12 @@ Use natural phrases and sentences to tap into Quackbot's talents. Like:
 - "Save documentcloud.com to the internet archive" or "archive documentcloud.com"
 - "Find data about agriculture"
 
+## Contributing
+
+If there's a tool or skill you think Quackbot should have, you can let us know at bots@qz.com.
+
+If you have a tool you've made that you'd like to incorporate, even better! Definitely get in touch.
+
 ## Privacy and security notes
 
 In short, Quackbot only "listens" to direct messages and channels to which it has been invited. And in public channels it's invited to, only pays attention to messages that begin with `@quackbot`.
@@ -52,5 +58,3 @@ Messages processed by Quackbot (direct messages addressed to the bot or channel 
 All communications in transit are protected via [SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) using `https` calls.
 
 For transparency, all the code for all of Quackbot's functions is kept in public, in this repository.
-
-
