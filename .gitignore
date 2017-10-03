@@ -1,3 +1,8 @@
 node_modules
 .env*
 claudia.json
+
+keys.json
+.DS_Store
+scratch.*
+
