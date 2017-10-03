@@ -12,12 +12,13 @@ function processWithNLP(slackEvent) {
         // even at the end of a line
         // and trim
         const text_to_send = slackEvent.text.replace(/\|.*>/,'').replace(/<http(\S*)>/,'http$1').replace(/<@\S*>[ $]?/,'').trim();
+        const datetime = Date.now();
             
         const content = {
             "query": text_to_send,
             "timezone": "America/New_York",
             "lang": "en",
-            "sessionId": slackEvent.user
+            "sessionId": datetime
         };  
         
         request.post({
