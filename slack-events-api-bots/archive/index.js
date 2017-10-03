@@ -1,8 +1,6 @@
 const request = require('request');
 const sendToSlack = require('./src/slack-send-message');
 
-// Include global variables here (if any)
-
 exports.handler = function(slackEvent, context, callback){ 
 
     // funtional code goes here ... with the 'event' and 'context' coming from
@@ -17,18 +15,7 @@ exports.handler = function(slackEvent, context, callback){
     
     const website = slackEvent.command.predicate;
     
-    const requestUrl = `https://web.archive.org/save/${website}`;
-    // 
-    // // Send message.
-    // request.get(requestUrl)
-    // .on('response', (res) => {
-    //     console.log (`Got back: \n${res.statusCode}`);
-    //     return;
-    // })
-    // .on('error', (err) => {
-    //     console.log (`ERROR: responded, but got: \n ${err.message}`);
-    //     return;
-    // });    
+    const requestUrl = `https://web.archive.org/save/${website}`;  
 
     request(requestUrl, function (error, response) {
         if (response.statusCode == 200) {
@@ -42,4 +29,3 @@ exports.handler = function(slackEvent, context, callback){
 
 };
 
-// Helper functions can go here
