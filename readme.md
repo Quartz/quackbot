@@ -1,6 +1,6 @@
-# Quackbot: A Slack bot for journalists
+![Quackbot](images/quackbot-icon_108.png)
 
-![Quackbot](.images/quackbot-icon_108.png)
+# Quackbot: A Slack bot for journalists
 
 [Quartz](https://qz.com) and [DocumentCloud](http://documencloud.org) have teamed up to give journalists convenient access to tools that make their work easier, better, and a little more fun. Together we’re releasing Quackbot, which performs tasks useful to reporters, editors, and news producers right where so many of us work all day -- inside [Slack](http://slack.com).
 
