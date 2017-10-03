@@ -1,4 +1,5 @@
 node_modules
+
 *.env*
 claudia.json
 
@@ -36,3 +37,4 @@ node_modules
 
 # Temporary keys
 keys.json
+

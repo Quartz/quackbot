@@ -1,13 +1,10 @@
-# Slack Bot on AWS Lambda
+# Quackbot: A Slack bot for journalists
 
-This repo currently provides three things:
+From Quartz and DocumentCloud
 
-1. [A collection of useful functions][lib] that can be copied into your code.
+## It's a little messy here
 
-2. A [slash command router][router] that runs on API Gateway.
+We've been working hard to get Quackbot ready, and our repo is a bit of a mess. But thanks for dropping by to check it out! We'll have more to say here when we launch on Thursday, Oct. 5.
 
-3. A [collection of Lambda functions][commands] that accept input from the router.
+If you're particularly intrepid, check out (or `checkout`) the `events-api` and `nlp-plz` branches, where we're working this week.
 
-[lib]: lib
-[router]: slack-slash-command-router
-[commands]: slack-slash-commands
