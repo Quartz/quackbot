@@ -9,8 +9,6 @@ function sendToSlack(slackEvent, reply) {
         if (!reply) {
             reject('OK: nothing to say');
         }
-        
-        console.log("Handling this event for sending back:", slackEvent);
 
         const slackMessage = {
             token: slackEvent.authorization.bot_access_token,
@@ -18,8 +16,6 @@ function sendToSlack(slackEvent, reply) {
             text: reply,
         };
         const requestUrl = `https://slack.com/api/chat.postMessage?${qs.stringify(slackMessage)}`;
-
-        console.log("Prepared to send this to slack: ", requestUrl);
 
         // Send message.
         https.get(requestUrl, (res) => {
