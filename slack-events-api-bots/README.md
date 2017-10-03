@@ -72,5 +72,6 @@ claudia create --region us-east-1 --handler index.handler --name quackbot-cliche
 - Check the logs
 - Fix that thing
 - Check the logs
-- Deploy by pushing both the bot's lambda function and `slack-events-api-message-handler` to `prod`.
+- Deploy by pushing both the bot's lambda function and `slack-events-api-message-handler` to `prod` using `claudia set-version --version prod`
+
 

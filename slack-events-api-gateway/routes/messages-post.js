@@ -43,7 +43,9 @@ function route(api, request) {
         }
 
         // Skip altered messages for now to avoid bot confusion
-        if (request.body.event.hasOwnProperty('subtype') && request.body.event.subtype == 'message_changed') {
+        // Later, to allow file uploads, use next line instead
+        // if (request.body.event.hasOwnProperty('subtype') && request.body.event.subtype != 'file_share') {
+        if (request.body.event.hasOwnProperty('subtype')) {
             console.log(`Subtype of "${request.body.event.subtype}" suggests a modified message. Skipping.`);
             resolve();
             return;
@@ -69,11 +71,11 @@ function route(api, request) {
         // Invoke router Lambda function.
         resolve(invokeLambdaFunction(request.body.event, 'slack-events-api-message-handler'));
     })
-    .then(() => {
+    .then((response) => {
         // We should respond to Slack with 200 to indicate that we've received the
         // event. If we do not, Slack will retry three times with back-off.
         console.log("Said 'OK' to Slack.");
-        return new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
+        return response || new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
     })
     .catch(error => {
         // We should *still* respond to Slack with 200, we'll just log it.

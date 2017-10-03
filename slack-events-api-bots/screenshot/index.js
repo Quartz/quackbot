@@ -20,7 +20,8 @@ exports.handler = function (slackEvent, context, callback) {
     console.log('Received Slack event....', slackEvent);
 
     if (!slackEvent.command.predicate) {
-        sendToSlack(slackEvent, "Oh, you have to specify a website. Try `@quackbot screenshot example.com`");
+        // missing URLs actually handled upstream by API.ai
+        // sendToSlack(slackEvent, "Oh, you have to specify a website. Try `@quackbot screenshot example.com`");
         callback(null);
         return;
     }
