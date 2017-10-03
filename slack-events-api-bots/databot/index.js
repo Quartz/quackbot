@@ -26,9 +26,6 @@ exports.handler = function(event, context, callback){
     // our quack bot sends the info in command.predicate
     var query = event.command.predicate;
 
-    // On it!
-    sendToSlack(event, `One sec while I check my list of excellent data sets for "${query}" ...`);
-
     getSpreadsheetData(spreadsheet_published_url, sheet_name)
     .then((sheet_data) => {
         searchSheet(query, sheet_data, columns_to_search)

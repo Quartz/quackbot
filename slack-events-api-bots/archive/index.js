@@ -33,10 +33,10 @@ exports.handler = function(slackEvent, context, callback){
     request(requestUrl, function (error, response) {
         if (response.statusCode == 200) {
             console.log("Successfully saved wayback page");
-            sendToSlack(slackEvent, `Saved ${website} to the internet archive!`);
+            sendToSlack(slackEvent, `Done! Saved ${website} to the internet archive.`);
         } else {
-            console.log("Problem getting the wayback page: ", error);
-            sendToSlack(slackEvent, "Hmmmm. That didn't work. Check the website URL and try again!");
+            console.log("Problem getting the wayback page: ", error, response);
+            sendToSlack(slackEvent, "Hmmmm. That didn't work. Sometimes you just need to try again. Also be sure the URL is a good one.");
         }
     });
 
