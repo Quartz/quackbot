@@ -1,0 +1,13 @@
+{
+  "name": "quackbot-screenshot",
+  "version": "1.0.0",
+  "description": "quack screenshot",
+  "main": "index.js",
+  "author": "Chris Zarate",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.52.0",
+    "gm": "^1.23.0",
+    "lambda-chrome": "chriszarate/aws-lambda-headless-chrome"
+  }
+}
