@@ -27,6 +27,19 @@ var promiseToSaveAuthorization = function(responseString){
   );
 };
 
+var promiseToNotifyAdmin = function(authorization){
+  var hook = process.env.ADMIN_WEBHOOK;
+  if (hook) {
+    return request({
+      url: hook,
+      method: 'POST',
+      json: {
+        text: `${authorization.details.team_name} (${authorization.details.team_id}) just added me!`
+      }
+    });
+  }
+};
+
 // Sequelize needs to be instructed to close db connections
 // so that Lambda can exit gracefully
 var promiseToCloseConnections = function(){
@@ -64,6 +77,7 @@ exports.handler = (event, context, callback) => {
   
   promiseToGetAuthorizationToken(code)
   .then(promiseToSaveAuthorization)
+  .then(promiseToNotifyAdmin)
   .then(promiseToCloseConnections)
   .then(success, handleError);
 };
