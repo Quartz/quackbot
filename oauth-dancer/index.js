@@ -1,6 +1,7 @@
 var request   = require('request-promise');
 var Sequelize = require('sequelize');
 var TeamStore = require('./lib/models/db');
+var crypto    = require('crypto');
 
 // Ask Slack to provide tokens for us to store and use later.
 var promiseToGetAuthorizationToken = function(code, options={}){
@@ -27,19 +28,6 @@ var promiseToSaveAuthorization = function(responseString){
   );
 };
 
-var promiseToNotifyAdmin = function(authorization){
-  var hook = process.env.ADMIN_WEBHOOK;
-  if (hook) {
-    return request({
-      url: hook,
-      method: 'POST',
-      json: {
-        text: `${authorization.details.team_name} (${authorization.details.team_id}) just added me!`
-      }
-    });
-  }
-};
-
 // Sequelize needs to be instructed to close db connections
 // so that Lambda can exit gracefully
 var promiseToCloseConnections = function(){
@@ -49,6 +37,37 @@ var promiseToCloseConnections = function(){
       console.log("handles after:", process._getActiveHandles().length);
     });
   });
+};
+
+var decodeState = function(stateString) {
+  var decode = function(ciphertext, ivString){
+
+    var algorithm = "aes-256-cbc";
+    var iv        = new Buffer(ivString, 'base64');
+    var key       = new Buffer(keyString, 'base64');
+    var msgBuffer = new Buffer(ciphertext, 'base64');
+  
+    var decipher = crypto.createDecipheriv(algorithm, key, iv);
+    return decipher.update(ciphertext, 'base64', 'utf8') + decipher.final();
+  };
+  
+  keyString = process.env.CIPHER_KEY;
+  
+  if (keyString) {
+    var inputSplit = stateString.split("--");
+    var msgStr = inputSplit[0];
+    var ivStr = inputSplit[1];
+    
+    var details = null;
+    try {
+      jsonStr = decode(msgStr, ivStr);
+      details = JSON.parse(jsonStr);
+    } catch(e) {
+      console.log("Caught an error!");
+      console.log(e);
+    }
+    return details;
+  }
 };
 
 exports.handler = (event, context, callback) => {
@@ -71,7 +90,24 @@ exports.handler = (event, context, callback) => {
     callback(new Error('internal server error'));
   };
   
+  var promiseToNotifyAdmin = function(authorization){
+    var hook = process.env.ADMIN_WEBHOOK;
+    if (hook) {
+      var userInfo = state ? `${state.email} (from ${state.slug})` : "Someone i couldn't identify";    
+    
+      return request({
+        url: hook,
+        method: 'POST',
+        json: {
+          text: `${userInfo} just added me to ${authorization.details.team_name} (${authorization.details.team_id})!`
+        }
+      });
+    }
+  };
+  
   var code = event.queryStringParameters.code;
+  var state = decodeState(event.queryStringParameters.state);
+  console.log("STATE IS: " + JSON.stringify(state));
   
   db = new TeamStore(Sequelize);
   

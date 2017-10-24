@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Quartz/quackbot#readme",
   "dependencies": {
+    "crypto": "^1.0.1",
     "pg": "^6.4.2",
     "request": "^2.82.0",
     "request-promise": "^4.2.2",
