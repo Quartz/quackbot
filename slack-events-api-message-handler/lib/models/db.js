@@ -23,9 +23,9 @@ var TeamStore = function(Sequelize, options) {
 
 TeamStore.prototype.close = function(){
   return this.sequelize.sync().then(function() {
-    console.log("handles before:", process._getActiveHandles().length);
+    // console.log("handles before:", process._getActiveHandles().length);
     return this.sequelize.close().then(function() {
-      console.log("handles after:", process._getActiveHandles().length);
+      // console.log("handles after:", process._getActiveHandles().length);
     });
   });
 };

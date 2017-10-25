@@ -18,8 +18,6 @@ exports.handler =  function (event, context, callback) {
             return team.latestAuthorization().then(
                 (authorization) => {
                     
-                    console.log("Authorization is \n", JSON.stringify(authorization));
-                    
                     // add the authorization info to the event
                     event.authorization = authorization[0].details.bot;
                     
@@ -31,8 +29,6 @@ exports.handler =  function (event, context, callback) {
                     } else {
 
                         console.log('Team Verified, handling message');
-
-                        console.log('Event is:', event);
 
                         // Extract command words.
                         const commandWords = event.text.trim().split(/\s+/);
@@ -68,7 +64,7 @@ exports.handler =  function (event, context, callback) {
                             
                             sendToSlack(event, event.nlp.fulfillment.speech);
                             
-                            console.log(`Event posted to ${event.stage} stage with\nverb '${event.command.verb}'\npredicate ${event.command.predicate}.`);
+                            console.log(`Event posted to ${event.stage} stage with\nverb '${event.command.verb}'`);
                             
                             return routeMessage(event).catch((message) => respondOnError(event, message) );
                         });
@@ -80,9 +76,7 @@ exports.handler =  function (event, context, callback) {
     .then(
         function(){
             db.sequelize.sync().then(function() {
-                // console.log("handles before:", process._getActiveHandles().length);
                 return db.sequelize.close().then(function() {
-                  // console.log("handles after:", process._getActiveHandles().length);
                 });
             });
         }

@@ -5,8 +5,6 @@ const request = require('request');
 function processWithNLP(slackEvent) {
     return new Promise ((resolve, reject) => {
         
-        console.log("Sending to API.ai for processing: \n", slackEvent);
-        
         // slack links can arrive like this <http://nyc.gov> 
         // or this <http://nyc.gov|nyc.gov> ... so pulling out 
         // the core link in either case.
@@ -14,12 +12,13 @@ function processWithNLP(slackEvent) {
         // even at the end of a line
         // and trim
         const text_to_send = slackEvent.text.replace(/\|.*>/,'').replace(/<http(\S*)>/,'http$1').replace(/<@\S*>[ $]?/,'').trim();
+        const datetime = Date.now();
             
         const content = {
             "query": text_to_send,
             "timezone": "America/New_York",
             "lang": "en",
-            "sessionId": slackEvent.user
+            "sessionId": datetime
         };  
         
         request.post({
@@ -36,7 +35,6 @@ function processWithNLP(slackEvent) {
                 return;
             }
               
-            console.log("API.AI returned: \n", response);
             resolve(body.result);
             return;
         });
