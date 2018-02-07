@@ -1,0 +1,26 @@
+{
+  "name": "quackbot-transcribe",
+  "version": "1.0.0",
+  "description": "Transcription abilities for Quackbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quartz/quackbot.git"
+  },
+  "author": "Quartz",
+  "license": "MIT",
+  "devDependencies": {
+    "claudia": "^2.14.2"
+  },
+  "bugs": {
+    "url": "https://github.com/quartz/quackbot/issues"
+  },
+  "homepage": "https://github.com/quartz/quackbot#readme",
+  "dependencies": {
+    "aws-sdk": "^2.190.0",
+    "request": "^2.83.0"
+  }
+}
