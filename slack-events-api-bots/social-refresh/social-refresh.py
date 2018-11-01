@@ -12,7 +12,7 @@ command = "scrape <https://www.newsday.com/long-island/nassau/great-neck-library
 
 try:
     url = str(command.split('scrape ')[-1]).replace('<','').replace('>','')
-    r = requests.post('https://graph.facebook.com/v2.7/', params={'scrape':'true', 'id': url, 'access_token': TOKEN})
+    r = requests.post('https://graph.facebook.com/v3.2/', params={'scrape':'true', 'id': url, 'access_token': TOKEN})
     # print in console to make sure everything works
     print r.text
     print r.status_code
