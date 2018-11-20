@@ -23,8 +23,10 @@ def handler(event, context):
         except Exception as e:
             if int(r.status_code) == 200:
                 message = "*Your page is fully scraped for Facebook/Twitter!*\n*Link*: `" + url + "`\nSince this is a shortened URL, I can't show you everything that was scraped."
+            elif int(r.status_code) == 400:
+                message = "Your scrape has an error ```" + str(json.loads(r.text)['error']['error_user_msg'].encode('utf-8').strip()) + "```\nContact your development team to fix this."
             else:
-                message = "This did not scrape properly."
+                message = "This did not scrape properly and the tags to debug cannot be found."
     except Exception as e:
         print e
         message = "Sorry, this broke, contact support... bahahahaa."
