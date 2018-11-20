@@ -1,6 +1,5 @@
 import os
 import json
-#from bs4 import BeautifulSoup
 from urllib2 import urlopen
 import requests
 
@@ -14,7 +13,8 @@ def handler(event, context):
 
     try:
         url = event.command.predicate ## note URL validation happens upstream
-        r = requests.post('https://graph.facebook.com/v2.7/', params={'scrape':'true', 'id': url, 'access_token': TOKEN})
+        ### new Facebook graph API
+        r = requests.post('https://graph.facebook.com/v3.2/', params={'scrape':'true', 'id': url, 'access_token': TOKEN})
         # print in console to make sure everything works
         print r.text
         print r.status_code
