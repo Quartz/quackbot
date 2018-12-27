@@ -1,5 +1,8 @@
 node_modules
 
+# python virtual environments
+venv
+
 *.env*
 claudia.json
 

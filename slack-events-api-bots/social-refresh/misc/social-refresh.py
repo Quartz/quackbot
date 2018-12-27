@@ -9,7 +9,7 @@ TOKEN = os.environ.get("FACEBOOK_TOKEN")
 # message is the current slack-based payload sent from place to place... this is currently how the message gets handled
 command = "scrape <https://www.newsday.com/long-island/nassau/great-neck-library-board-trustee-mimi-hu-1.22690319>"
 
-def handler(event, context):
+def lambda_handler(event, context):
 
     try:
         url = event.command.predicate ## note URL validation happens upstream
@@ -36,8 +36,7 @@ def handler(event, context):
     # It'll need to be a python port of ./src/slack-send-message
     print message
 
-
-
     return {
         'status' : 'OK'
     }
+

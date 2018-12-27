@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Globals:
+  Function:
+    Timeout: 3
+Outputs:
+  MyFunction:
+    Description: Your Function ARN
+    Value:
+      Fn::GetAtt:
+      - MyFunction
+      - Arn
+Resources:
+  MyFunction:
+    Properties:
+      CodeUri: s3://botstudio-lambda-payload-staging/d0acc9dade0d133ef65093bf243f330d
+      Description: The Social Refresh superpower for Quackbot, by Ryan Restivo
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      FunctionName: quackbot-social-refresh
+      Handler: app.lambda_handler
+      Role: arn:aws:iam::612251176106:role/botstudio-quackbot-lambda-execution
+      Runtime: python2.7
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
