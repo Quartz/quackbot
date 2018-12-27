@@ -1,16 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
     Function:
         Timeout: 3
 
-
 Resources:
 
     MyFunction:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Type: AWS::Serverless::Function
         Properties:
             FunctionName: quackbot-social-refresh
             Description: The Social Refresh superpower for Quackbot, by Ryan Restivo
@@ -18,9 +16,6 @@ Resources:
             CodeUri: app/
             Handler: app.lambda_handler
             Runtime: python2.7
-            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-                Variables:
-                    PARAM1: VALUE
 
 Outputs:
 

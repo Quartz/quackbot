@@ -75,8 +75,7 @@ def lambda_handler(event, context):
     """
 
     try:
-        url = event.command.predicate ## note URL validation happens upstream
-        ### new Facebook graph API
+        url = event['command']['predicate'] ## note URL validation happens upstream        ### new Facebook graph API
         r = requests.post('https://graph.facebook.com/v3.2/', params={'scrape':'true', 'id': url, 'access_token': TOKEN})
         # print in console to make sure everything works
         print r.text
