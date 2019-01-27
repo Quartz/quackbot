@@ -1,0 +1,62 @@
+{
+  "id": "58a2ae2a-37fa-46c0-80a7-6c499d080206",
+  "timestamp": "2019-01-27T20:30:13.43Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "make json for me",
+    "action": "json-maker-action",
+    "actionIncomplete": true,
+    "parameters": {
+      "url": ""
+    },
+    "contexts": [
+      {
+        "name": "json-maker-test_dialog_params_url",
+        "parameters": {
+          "url.original": "",
+          "url": ""
+        },
+        "lifespan": 1
+      },
+      {
+        "name": "json-maker-test_dialog_context",
+        "parameters": {
+          "url.original": "",
+          "url": ""
+        },
+        "lifespan": 2
+      },
+      {
+        "name": "8a7ee1b3-02bd-4101-b59d-9925641df034_id_dialog_context",
+        "parameters": {
+          "url.original": "",
+          "url": ""
+        },
+        "lifespan": 2
+      }
+    ],
+    "metadata": {
+      "intentId": "8a7ee1b3-02bd-4101-b59d-9925641df034",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "isFallbackIntent": "false",
+      "intentName": "json-maker-test"
+    },
+    "fulfillment": {
+      "speech": "Will do. What's the URL of the Google spreadsheet I should use?",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Will do. What's the URL of the Google spreadsheet I should use?"
+        }
+      ]
+    },
+    "score": 0.550000011920929
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "3c226fc5-b5b8-fdc0-1462-6e2dcac7d973"
+}
