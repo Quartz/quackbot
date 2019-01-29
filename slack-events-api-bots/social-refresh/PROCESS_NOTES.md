@@ -121,6 +121,12 @@ pip freeze > requirements.txt
 mv requirements.txt app/
 ```
 
+To install the contents of an existing `requirements.txt` file: 
+
+```
+pip install -r app/requirements.txt 
+```
+
 I also made a blank `__init__.py` file, as the example has.
 
 ```
