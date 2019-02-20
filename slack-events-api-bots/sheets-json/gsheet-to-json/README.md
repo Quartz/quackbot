@@ -47,8 +47,37 @@ From there, the script:
 - we check to see if they've already added that URL
 3) Quackbot asks user what nickname they'd like to give this new project
 - we make sure they haven't used that name for another project
+- would be even better to use the spreadsheet's title as the nickname if possible(!)
 4) INVISIBLE TO USER: Quackbot adds project metadata in our storage system, using lowercase/slugified project nickname as the key. Data stored is: user, Google Sheet URL, project nickname, JSON filename (which we should automatically generate using some combination of nickname+GUID)
 5) Quackbot gives the user a success message, provides our API email address, and reminds them they must give that address access to their Google Sheet for this to work
+
+-----
+Alternate version, without using a database:
+
+Human: Turn my spreadsheet into JSON.
+
+- Lambda function checks team directory to see if there are any current files
+- If current files exist ...
+    - Provides a dropdown of spreadsheet names
+    - Provides "new spredsheet" button
+- Otherwise ...
+
+Quackbot: OK, be sure it has no private data inside (because we’re about to put it on the internet!) and then share that me with quackbot@gmail.com. When you’re done, click the Done button.
+
+Human: Clicks Done button.
+
+Quackbot: What’s the URL?
+
+Human: https://docs.google.com/spreadsheets/d/1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw/edit?usp=sharing
+
+Lambda:
+- Hits the spreadsheet URL to make sure it's being shared right
+- Passes URL to `gsheet_to_json`
+- Which makes the JSON *and* detects the spreadsheet title is “My Example Project”
+- Stores json file on S3 as `/[slackTeamIDNumber]/My%20Example%20Project.json`
+- Stores another file called `/[slackTeamIDNumber]/My%20Example%20Project.txt` containing the URL of the google spreadsheet, encrypted.
+
+later, when we need to list the available spreadsheets, we just check the files in the team directory, and list them!
 
 ### User asks for new JSON from a project
 
@@ -58,3 +87,5 @@ From there, the script:
 - if they DO provide a project nickname, we attempt to find its metadata in our storage system. If we can't find it, we return the list of existing Google Sheet projects as above and the user clicks a button in response.
 3) INVISIBLE TO USER: Quackbot passes project metadata into the Lambda wrapper around `gsheet_to_json.py`, which creates and stores the JSON in S3.
 4) Quackbot returns a success message along with a reminder link to the JSON file.
+
+
