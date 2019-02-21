@@ -61,7 +61,7 @@ claudia create --region us-east-1 --handler index.handler --name quackbot-cliche
 
 ### Prepare the Natural Language Processor
 
-- Train our [API.ai](http://API.ai) agent to send the bot's name as an ACTION and any additional parameters given a user's natural language input. So "please send me a screenshot of https://qz.com" becomes a "screenshot" action with "https://qz.com" as the url parameter. Note that the action must match the bot's property label in `slack-events-api-message-handler/commands.js`. (See example above using `cliches`.)
+- Train our [Dialogflow](http://dialogflow.com) agent to send the bot's name as an ACTION and any additional parameters given a user's natural language input. So "please send me a screenshot of https://qz.com" becomes a "screenshot" action with "https://qz.com" as the url parameter. Note that the action must match the bot's property label in `slack-events-api-message-handler/commands.js`. (See example above using `cliches`.)
 - If the parameter provided by API.ai isn't "url" or "topic" you need to add the new type as a possible `event.command.predicate` in the code at `slack-events-api-message-handler/index.js` (TODO: Abstract this.)
 
 ### Test and deploy

@@ -66,10 +66,12 @@ exports.handler =  function (event, context, callback) {
                             event.command.verb = event.nlp.action || null;
                             event.command.predicate = event.nlp.parameters.url || event.nlp.parameters.topic || null;
                             
+                            // send the speech back to the user
                             sendToSlack(event, event.nlp.fulfillment.speech);
                             
                             console.log(`Event posted to ${event.stage} stage with\nverb '${event.command.verb}'\npredicate ${event.command.predicate}.`);
                             
+                            // send the human's message to the router for further action
                             return routeMessage(event).catch((message) => respondOnError(event, message) );
                         });
                     }

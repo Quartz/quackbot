@@ -54,28 +54,31 @@ From there, the script:
 -----
 Alternate version, without using a database:
 
-Human: Turn my spreadsheet into JSON.
+    Human: Turn my spreadsheet into JSON.
 
-- Lambda function checks team directory to see if there are any current files
-- If current files exist ...
-    - Provides a dropdown of spreadsheet names
-    - Provides "new spredsheet" button
-- Otherwise ...
+    - incoming-messages lambda function checks team directory to see if there are any current files
+    - If current files exist ...
+        - Provides a dropdown of spreadsheet names
+        - Provides "new spreadsheet" button
+    - Otherwise
+        - Tells human to share the spreadsheet
 
-Quackbot: OK, be sure it has no private data inside (because we’re about to put it on the internet!) and then share that me with quackbot@gmail.com. When you’re done, click the Done button.
+    Quackbot: OK, be sure it has no private data inside (because we’re about to put it on the internet!) and then share that me with quackbot@gmail.com. When you’re done, click the Done button.
 
-Human: Clicks Done button.
+    Human: Clicks Done button.
+    
+        - Payload of Done button routes back to the incoming-messages lambda. 
 
-Quackbot: What’s the URL?
+    Quackbot: What’s the URL?
 
-Human: https://docs.google.com/spreadsheets/d/1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw/edit?usp=sharing
+    Human: https://docs.google.com/spreadsheets/d/1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw/edit?usp=sharing
 
-Lambda:
-- Hits the spreadsheet URL to make sure it's being shared right
-- Passes URL to `gsheet_to_json`
-- Which makes the JSON *and* detects the spreadsheet title is “My Example Project”
-- Stores json file on S3 as `/[slackTeamIDNumber]/My%20Example%20Project.json`
-- Stores another file called `/[slackTeamIDNumber]/My%20Example%20Project.txt` containing the URL of the google spreadsheet, encrypted.
+    Lambda:
+    - Hits the spreadsheet URL to make sure it's being shared right
+    - Passes URL to `gsheet_to_json`
+    - Which makes the JSON *and* detects the spreadsheet title is “My Example Project”
+    - Stores json file on S3 as `/[slackTeamIDNumber]/My%20Example%20Project.json`
+    - Stores another file called `/[slackTeamIDNumber]/My%20Example%20Project.txt` containing the URL of the google spreadsheet, encrypted.
 
 later, when we need to list the available spreadsheets, we just check the files in the team directory, and list them!
 

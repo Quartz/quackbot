@@ -4,9 +4,17 @@ function routeMessage(event) {
  
   const supportedCommands = require('../commands');
     
-  // Command verb not found.
+  // If the command verb not found (this will include smalltalk... actions from the nlp)
+  // then just end quietly.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {
       console.log(`Action/verb "${event.command.verb}" not in the command.js list. Ending silently.`);
+      return Promise.reject();
+  }
+  
+  // If we're in the middle of a conversation (event.nlp.results.actionIncomplete = true),
+  // then we don't yet have enough information, so just end quietly. TODO: Update for Dialogflow V2
+  if (event.nlp.results.hasOwnProperty("actionIncomplete") && event.nlp.results.actionIncomplete === true) {
+      console.log(`We're in mid-conversation (actionIncomplete = true). Ending silently.`);
       return Promise.reject();
   }
 

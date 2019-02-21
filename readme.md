@@ -21,9 +21,9 @@ Soon, Quackbot will also allow journalists to upload PDFs to DocumentCloud, extr
 
 ## Installing
 
-Quackbot will be available starting this Thursday. All you’ll need is a DocumentCloud account (free for any journalist) and Slack. Add Quackbot to your team and, once the DocumentCloud team has verified you, we’ll activate it. That’s it.
+All you’ll need is a DocumentCloud account (free for any journalist) and Slack. Add Quackbot to your team and, once the DocumentCloud team has verified you, we’ll activate it. That’s it.
 
-An installation link will appear here soon. In the meantime, if you're interested you can add your name and email to [this form](https://docs.google.com/forms/d/e/1FAIpQLSeSXJrqd-_uIaN8riPNsn1Wk66y8AtGQbuBLGSk6aLGicj3fQ/viewform?usp=sf_link).
+[Head here to install Quackbot](https://www.documentcloud.org/quackbot).
 
 ## Using Quackbot
 
@@ -57,4 +57,4 @@ Messages processed by Quackbot (direct messages addressed to the bot or channel 
 
 All communications in transit are protected via [SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) using `https` calls.
 
-For transparency, all the code for all of Quackbot's functions is kept in public, in this repository.
+For transparency, all the code for all of Quackbot's functions are kept in public, in this repository.
