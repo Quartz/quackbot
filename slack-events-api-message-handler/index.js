@@ -55,6 +55,17 @@ exports.handler =  function (event, context, callback) {
                             };
                         }
                         
+                        // handle messages of type (subtype?) "block_actions"
+                        // like a button or dropdown (so not typed speech)
+                        // ... note that we'll handle thee routing in the router function ...
+                        
+                        // make the command and the predicate the action_id and value
+                        
+                        // sendToSlack(event, "OK, one moment!")
+                        // event.command.verb = event.??.??.actions[0].action_id
+                        // event.command.predicate = event.??.??.actions[0].selected_option.value
+                        // return routeMessage(event).catch((message) => respondOnError(event, message) );
+                        
                         // process the human's request with natural language processing
                         return processWithNLP(event)
                         .then(nlpResult => {

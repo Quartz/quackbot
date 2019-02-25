@@ -1,0 +1,41 @@
+{
+	"type": "block_actions",
+	"team": {
+		"id": "T0CAG",
+		"domain": "acme-creamery"
+	},
+	"user": {
+		"id": "U0CA5",
+		"username": "Amy McGee",
+		"team_id": "T3MDE"
+	},
+	"api_app_id": "A0CA5",
+	"token": "Shh_its_a_seekrit",
+	"container": {
+		"type": "message",
+		"text": "The contents of the original message where the action originated"
+	},
+	"trigger_id": "12466734323.1395872398",
+	"response_url": "https://www.postresponsestome.com/T123567/1509734234",
+	"actions": [
+		{
+			"type": "static_select",
+			"block_id": "WRc=",
+			"action_id": "json_file_picker_dropdown",
+			"selected_option": {
+				"text": {
+					"type": "plain_text",
+					"text": "Choice 2",
+					"emoji": true
+				},
+				"value": "https://url-of-the-files-spreadsheet"
+			},
+			"placeholder": {
+				"type": "plain_text",
+				"text": "Select an item",
+				"emoji": true
+			},
+			"action_ts": "1551133687.135438"
+		}
+	]
+}

@@ -4,10 +4,7 @@ var api = new ApiBuilder();
 
 module.exports = api;
 
-// var OBSCURED_URL = process.env.API_ENDPOINT;
-var OBSCURED_URL = "testing123";
-
-api.post(`/${OBSCURED_URL}`, function(request){
+api.post(`/checkfiles`, function(request){
   // bulding the reply (repsonse)
   // which first sends the request object to sparkbot for processing
   return filechecker(request)

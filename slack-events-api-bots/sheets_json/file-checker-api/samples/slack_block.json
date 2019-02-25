@@ -1,0 +1,58 @@
+[
+	{
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "Looks like you have existing JSON files I could update for you. Cool!"
+		}
+	},
+	{
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "To *update* an existing file, pick one from the list here ..."
+		},
+		"accessory": {
+            "action_id": "json_file_picker_dropdown",
+			"type": "static_select",
+			"placeholder": {
+				"type": "plain_text",
+				"text": "Pick a file ...",
+				"emoji": true
+			},
+			"options": [
+				{
+					"text": {
+						"type": "plain_text",
+						"text": "Choice 1",
+						"emoji": true
+					},
+					"value": "https://url-of-the-files-spreadsheet/value-0"
+				},
+				{
+					"text": {
+						"type": "plain_text",
+						"text": "Choice 2",
+						"emoji": true
+					},
+					"value": "https://url-of-the-files-spreadsheet/value-1"
+				},
+				{
+					"text": {
+						"type": "plain_text",
+						"text": "Choice 3",
+						"emoji": true
+					},
+					"value": "https://url-of-the-files-spreadsheet/value-2"
+				}
+			]
+		}
+	},
+	{
+		"type": "section",
+		"text": {
+			"type": "mrkdwn",
+			"text": "To make a *new* JSON file ... \n1. Share the new Google spreadsheet with quackbot-tbd@gmail.com\n2. Give me the sharing link for that new spreadsheet. "
+		}
+	}
+]
