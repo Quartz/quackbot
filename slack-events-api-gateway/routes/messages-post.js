@@ -60,7 +60,7 @@ function route(api, request) {
 
         // Add API Gateway stage to message. We'll need this to determine where to
         // route the message.
-        console.log(`Incoming event sent to ${request.context.stage} stage.`);
+        console.log(`Incoming event sent to slack-events-api-message-handler's ${request.context.stage} stage.`);
         request.body.event.stage = request.context.stage;
         
         // Also add the stage's environment variables to the message so 

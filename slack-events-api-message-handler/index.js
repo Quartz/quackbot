@@ -8,14 +8,14 @@ var Sequelize = require('sequelize');
 exports.handler =  function (event, context, callback) {
     var db        = require('./lib/models/db')(Sequelize);
     db.Team.findOne({ where: { slack_id: event.team_id } })
-    .then( (team) => {
-        if (team === null) {
+        .then( (team) => {
+            if (team === null) {
             // bail.  We somehow got a message from a team
             // that didn't install the bot.
-            return ("We somehow got a message from a team that didn't install Quackbot.");
+                return ("We somehow got a message from a team that didn't install Quackbot.");
             
-        } else {
-            return team.latestAuthorization().then(
+            } else {
+                return team.latestAuthorization().then(
                 (authorization) => {
                     
                     console.log("Authorization is \n", JSON.stringify(authorization));
