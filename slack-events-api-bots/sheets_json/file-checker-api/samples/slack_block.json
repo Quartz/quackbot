@@ -13,7 +13,7 @@
 			"text": "To *update* an existing file, pick one from the list here ..."
 		},
 		"accessory": {
-            "action_id": "json_file_picker_dropdown",
+            "action_id": "quackbot-gsheet-to-json",
 			"type": "static_select",
 			"placeholder": {
 				"type": "plain_text",

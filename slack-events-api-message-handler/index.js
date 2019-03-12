@@ -57,7 +57,7 @@ exports.handler =  function (event, context, callback) {
                         
                         // handle messages of type (subtype?) "block_actions"
                         // like a button or dropdown (so not typed speech)
-                        // ... note that we'll handle thee routing in the router function ...
+                        // ... note that we'll handle _getActiveHandlese routing in the router function ...
                         
                         // make the command and the predicate the action_id and value
                         

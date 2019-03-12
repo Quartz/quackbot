@@ -5,7 +5,7 @@ const request = require('request');
 function processWithNLP(slackEvent) {
     return new Promise ((resolve, reject) => {
         
-        console.log("Sending to API.ai for processing: \n", slackEvent);
+        console.log("Sending to Dialogflow for processing: \n", slackEvent);
         
         // slack links can arrive like this <http://nyc.gov> 
         // or this <http://nyc.gov|nyc.gov> ... so pulling out 
@@ -19,7 +19,7 @@ function processWithNLP(slackEvent) {
             "query": text_to_send,
             "timezone": "America/New_York",
             "lang": "en",
-            "sessionId": slackEvent.user
+            "sessionId": slackEvent.team_id + "-" + slackEvent.user
         };  
         
         request.post({
