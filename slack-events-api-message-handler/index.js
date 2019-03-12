@@ -33,7 +33,7 @@ exports.handler =  function (event, context, callback) {
                         console.log('Team Verified, handling message');
 
                         console.log('Event is:', event);
-
+                        
                         // Extract command words.
                         const commandWords = event.text.trim().split(/\s+/);
                         
@@ -42,9 +42,10 @@ exports.handler =  function (event, context, callback) {
                         
                         var is_direct_message_to_me = event.channel.match(/^D*/)[0] == "D";
                         var command_starts_with_me = (commandWords[0] == `<@${event.authorization.bot_user_id}>`);
-                        
+            
                         if (!is_direct_message_to_me && !command_starts_with_me) {
-                            return 'Ignoring message that is none of my beeswax, bye!';
+                            console.log('Ignoring message that is none of my beeswax, bye!');
+                            return;
                         }
                         
                         // handle file uploads - TODO make sure this works 

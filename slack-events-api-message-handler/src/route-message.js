@@ -7,7 +7,7 @@ function routeMessage(event) {
   // Command verb not found.
   if (Object.keys(supportedCommands).indexOf(event.command.verb) === -1) {
       console.log(`Action/verb "${event.command.verb}" not in the command.js list. Ending silently.`);
-      return Promise.reject();
+      return Promise.resolve('OK');
   }
 
   const route = supportedCommands[event.command.verb];

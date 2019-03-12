@@ -79,7 +79,7 @@ function route(api, request) {
     })
     .catch(error => {
         // We should *still* respond to Slack with 200, we'll just log it.
-        console.error(error.message);
+        console.error("Error caught in slack-events-api-gateway:", error);
         return new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
     });
 }
