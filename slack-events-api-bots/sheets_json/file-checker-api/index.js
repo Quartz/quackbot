@@ -14,9 +14,11 @@ module.exports = function(incoming) {
     // incoming is from dialogflow api V1  TODO: Upgrade to V2
     // see: https://dialogflow.com/docs/fulfillment/how-it-works
   
+    var webhook = incoming.body;
+  
     //// TEMPORARY DEV THING. 
     // Setting sessin id here to test from Dialogflow. Delete this in production.
-    incoming.sessionId = "T111111Z-U222222W";
+    webhook.sessionId = "T111111Z-U222222W";
   
     // establish a blank return object
     var sendback = {
@@ -32,7 +34,19 @@ module.exports = function(incoming) {
         
     return new Promise(function(resolve, reject){
         
-        mainFunction(incoming)
+        console.log(webhook);
+        
+        // if the incoming payload already has a url -- so it was provided
+        // by the user in whatever they said -- then just head back with empty
+        // slack directives and let the message be handled normally.
+        if (!webhook.result.actionIncomplete) {
+            sendback.speech = "OK, let me check that for you ...";
+            sendback.displayText = sendback.speech;
+            resolve(sendback);
+            return;
+        }
+        
+        mainFunction(webhook)
             // .then(buildSlackResponse)   
             .then( (results) => {
                 console.log("Main code:", JSON.stringify(results));
