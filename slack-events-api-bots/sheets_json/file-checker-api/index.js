@@ -10,34 +10,32 @@ var s3_bucket = "quack-gsheet-jsons";
 // var bucket = process.ENV.S3_BUCKET;
 
 module.exports = function(incoming) {
-    
-    // incoming is from dialogflow api V1  TODO: Upgrade to V2
-    // see: https://dialogflow.com/docs/fulfillment/how-it-works
-  
-    var webhook = incoming.body;
-  
-    //// TEMPORARY DEV THING. 
-    // Setting sessin id here to test from Dialogflow. Delete this in production.
-    webhook.sessionId = "T111111Z-U222222W";
-  
-    // establish a blank return object
-    var sendback = {
-        "speech": "",
-        "displayText": "",
-        "data": {
-            "slack": {}
-        },
-        "contextOut": [],
-        "source": "Quackbot File-Checker API",
-        "followupEvent": {}
-    };
         
     return new Promise(function(resolve, reject){
         
-        console.log(webhook);
+        // incoming is from dialogflow api V1  TODO: Upgrade to V2
+        // see: https://dialogflow.com/docs/fulfillment/how-it-works
+      
+        var webhook = incoming.body;
+      
+        //// TEMPORARY DEV THING. 
+        // Setting sessin id here to test from Dialogflow. Delete this in production.
+        webhook.sessionId = "T111111Z-U222222W";
+      
+        // establish a blank return object
+        var sendback = {
+            "speech": "",
+            "displayText": "",
+            "data": {
+                "slack": {}
+            },
+            "contextOut": [],
+            "source": "Quackbot File-Checker API",
+            "followupEvent": {}
+        };
         
-        // if the incoming payload already has a url -- so it was provided
-        // by the user in whatever they said -- then just head back with empty
+        // if the incoming webhook already has a url -- so it was provided
+        // by the user in whatever they said -- then just head back empty
         // slack directives and let the message be handled normally.
         if (!webhook.result.actionIncomplete) {
             sendback.speech = "OK, let me check that for you ...";
@@ -46,12 +44,11 @@ module.exports = function(incoming) {
             return;
         }
         
+        // otherwise, we're going to check the existing files for this team
+        // and reply with a set of slack blocks
         mainFunction(webhook)
-            // .then(buildSlackResponse)   
             .then( (results) => {
-                console.log("Main code:", JSON.stringify(results));
-                
-                // decode the team id from the sessionId
+                // console.log("Main code:", JSON.stringify(results));                
                 sendback.speech = "This is the result from the API! Congrats!";
                 sendback.data.slack = results;
                 resolve(sendback);
@@ -92,7 +89,6 @@ function listS3(params) {
         }); 
     });
 }
-
 
 
 async function getAllTheFiles(file_list) {
@@ -168,41 +164,45 @@ function buildSlackResponse(file_links) {
     // establish a blank slack block object
     var slack_back = [
         {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Looks like you have existing JSON files I could update for you. Cool!"
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "To *update* an existing file, pick one from the list here ..."
-            },
-            "accessory": {
-                "action_id": "quackbot-gsheet-to-json",
-                "type": "static_select",
-                "placeholder": {
-                    "type": "plain_text",
-                    "text": "Pick a file ...",
-                    "emoji": true
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Looks like you have existing JSON files I could update for you. Cool!"
+                    }
                 },
-                "options": []
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "To make a *new* JSON file ... \n1. Share the new Google spreadsheet with quackbot-tbd@gmail.com\n2. Give me the sharing link for that new spreadsheet. "
-            }
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "To *update* an existing file, pick one from the list here ..."
+                    },
+                    "accessory": {
+                        "action_id": "quackbot-gsheet-to-json",
+                        "type": "static_select",
+                        "placeholder": {
+                            "type": "plain_text",
+                            "text": "Pick a file ...",
+                            "emoji": true
+                        },
+                        "options": []
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "To make a *new* JSON file ... \n1. Share the new Google spreadsheet with quackbot-tbd@gmail.com\n2. Give me the sharing link for that new spreadsheet. "
+                    }
+                }
+            ]
         }
     ];
     
     // just return the last instruction if there are no file links
     if (!file_links) {
-        return slack_back[2];
+        return slack_back[0].blocks[2];
     }
     
     var option_list = [];
@@ -226,7 +226,7 @@ function buildSlackResponse(file_links) {
     // insert the options list into the blank slack_back object
     // where it goes (which, for us, is inside the second element in the array)
 
-    slack_back[1].accessory.options = option_list;
+    slack_back[0].blocks[1].accessory.options = option_list;
     return slack_back;
     
     
