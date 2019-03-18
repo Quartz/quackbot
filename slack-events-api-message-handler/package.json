@@ -7,6 +7,7 @@
     "claudia": "^2.14.2",
     "pg": "^6.4.2",
     "request": "^2.83.0",
+    "request-json": "^0.6.4",
     "sequelize": "^4.13.2"
   },
   "devDependencies": {

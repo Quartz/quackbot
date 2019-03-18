@@ -28,7 +28,7 @@
 					"text": "Choice 2",
 					"emoji": true
 				},
-				"value": "https://url-of-the-files-spreadsheet"
+				"value": "spreadsheet-id-string"
 			},
 			"placeholder": {
 				"type": "plain_text",

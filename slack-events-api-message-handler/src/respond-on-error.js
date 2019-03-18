@@ -1,4 +1,3 @@
-const invokeLambdaFunction = require('../src/lambda-invoke-function');
 const sendToSlack = require('../src/slack-send-message');
 
 function respondOnError(event, errorMessage) {

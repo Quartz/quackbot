@@ -1,14 +1,38 @@
 const invokeLambdaFunction = require('../src/lambda-invoke-function');
 
+const supportedPayloadBodyTypes = [
+    'event_callback',
+    'block_actions'
+];
+
 const supportedEventTypes = [
     'message',
-    'message.channels'
+    'message.channels',
+    'block_actions'
 ];
 
 function route(api, request) {
     return new Promise(resolve => {
+                
+        // check for valid body or payload
         if (typeof request.body !== 'object') {
-            throw new Error('Unexepcted request format.');
+            
+            // see if it's a string beginning with "payload," 
+            // which is how slack sends responses to block interactions
+            if (typeof request.body == 'string' && request.body.match(/^payload=/)) {
+                
+                console.log("Handling incoming Slack block response.")
+                request.body = JSON.parse(request.post.payload)
+                request.body.event = {}
+                request.body.event.type = request.body.type
+                request.body.team_id = request.body.team.id // because blocks store ID differently
+                
+            // otherwise, we don't know what this is    
+            } else {
+                
+                throw new Error('Unexepcted request format.');
+                
+            }
         }
 
         // Slack sends a verification token with each request. We use this to verify
@@ -29,8 +53,15 @@ function route(api, request) {
             return;
         }
 
-        if (request.body.type !== 'event_callback' || typeof request.body.event !== 'object') {
-            console.log(`Unexpected event type: ${request.body.type}`);
+        // Event subscriptions are managed in the Slack App settings.
+        if (supportedPayloadBodyTypes.indexOf(request.body.type) === -1) {
+            console.log(`Unsupported payload body type: ${request.body.type}`);
+            resolve();
+            return;
+        }
+        
+        if ( typeof request.body.event !== 'object') {
+            console.log(`Event isn't an object: ${request.body.event}`);
             resolve();
             return;
         }
@@ -71,17 +102,17 @@ function route(api, request) {
         // Invoke router Lambda function.
         resolve(invokeLambdaFunction(request.body.event, 'slack-events-api-message-handler'));
     })
-    .then((response) => {
+        .then((response) => {
         // We should respond to Slack with 200 to indicate that we've received the
         // event. If we do not, Slack will retry three times with back-off.
-        console.log("Said 'OK' to Slack.");
-        return response || new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
-    })
-    .catch(error => {
+            console.log("Said 'OK' to Slack.");
+            return response || new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
+        })
+        .catch(error => {
         // We should *still* respond to Slack with 200, we'll just log it.
-        console.error(error.message);
-        return new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
-    });
+            console.error(error.message);
+            return new api.ApiResponse('OK', { 'Content-Type': 'text/plain' }, 200);
+        });
 }
 
 module.exports = route;
