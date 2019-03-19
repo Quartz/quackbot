@@ -23,9 +23,7 @@ function route(api, request) {
                 
                 console.log("Handling incoming Slack block response.")
                 request.body = JSON.parse(request.post.payload)
-                request.body.event = {}
-                request.body.event.type = request.body.type
-                request.body.team_id = request.body.team.id // because blocks store ID differently
+                request.body.event = JSON.parse(request.post.payload)
                 
             // otherwise, we don't know what this is    
             } else {
@@ -97,7 +95,7 @@ function route(api, request) {
         // Also add the stage's environment variables to the message so 
         // we use the right database and all
         request.body.event.env = request.env;
-        request.body.event.team_id = request.body.team_id;
+        request.body.event.team_id = request.body.team_id || request.body.team.id;
 
         // Invoke router Lambda function.
         resolve(invokeLambdaFunction(request.body.event, 'slack-events-api-message-handler'));

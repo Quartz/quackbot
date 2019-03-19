@@ -43,15 +43,12 @@ exports.handler =  function (event, context, callback) {
                         
 
                             // handle an incoming response to a slack action we initiated
+                            // ... which we know because block_actions won't get here without
+                            // hitting the URL directly and having passed a valid token
                             if (event.type == "block_actions") {
                                 
                                 console.log("Handling block action.")
-                                
-                                if (event.message.bot_id !== event.authorization.bot_user_id) {
-                                    console.log("Block response originated from a bot I don't recognize.");
-                                    return null;
-                                }
-                                
+                                event.command = {}
                                 event.command.verb = event.actions[0].action_id
                                 event.command.predicate = event.actions[0].selected_option.value
                                 return routeMessage(event)
@@ -120,7 +117,7 @@ exports.handler =  function (event, context, callback) {
         .catch(error => {
             console.error(error);
             callback(null);
-            return;
+            return Promise.resolve();
         });
 };
 

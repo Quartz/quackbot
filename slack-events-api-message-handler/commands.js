@@ -23,9 +23,9 @@ module.exports = {
         usage: 'Look for cliches on <url>',
         descrition: 'Scan a web page for cliches.'
     },
-    sheets_json: {
+    gsheet_json: {
         type: 'lambda',
-        functionName: 'quackbot-gsheet-to-json',
+        functionName: 'quackbot-sheets-json-bot',
         usage: 'Make a json file out of this Google spreadsheet <url>',
         descrition: 'Makes a JSON file out of a Google spreadsheet and puts it on the internet.'
     }

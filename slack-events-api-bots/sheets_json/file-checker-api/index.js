@@ -179,7 +179,7 @@ function buildSlackResponse(file_links) {
                         "text": "To *update* an existing file, pick one from the list here ..."
                     },
                     "accessory": {
-                        "action_id": "quackbot-gsheet-to-json",
+                        "action_id": "gsheet_json",
                         "type": "static_select",
                         "placeholder": {
                             "type": "plain_text",
