@@ -1,5 +1,126 @@
 {
-    "command" : {
-        "predicate": "https://docs.google.com/spreadsheets/d/1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw/edit#gid=0"
+    "type": "block_actions",
+    "team": {
+        "id": "T111111Z",
+        "domain": "documentcloud"
+    },
+    "user": {
+        "id": "U222222W",
+        "username": "johnkeefe",
+        "team_id": "T121212Z"
+    },
+    "api_app_id": "A1111111",
+    "token": "sekret-token",
+    "container": {
+        "type": "message_attachment",
+        "message_ts": "1552959945.013400",
+        "attachment_id": 1,
+        "channel_id": "C1111111",
+        "is_ephemeral": false,
+        "is_app_unfurl": false
+    },
+    "trigger_id": "582408038198.2309601577.7dba1f7b7026ffb60fa88fd4bfce06f2",
+    "channel": {
+        "id": "C1111111",
+        "name": "bots"
+    },
+    "message": {
+        "type": "message",
+        "subtype": "bot_message",
+        "text": "",
+        "ts": "1552959945.013400",
+        "username": "quackbot",
+        "bot_id": "B1111111",
+        "attachments": [
+            {
+                "id": 1,
+                "blocks": [
+                    {
+                        "type": "section",
+                        "block_id": "Nua",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "Looks like you have existing JSON files I could update for you. Cool!",
+                            "verbatim": false
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "block_id": "15/fw",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "To *update* an existing file, pick one from the list here ...",
+                            "verbatim": false
+                        },
+                        "accessory": {
+                            "type": "static_select",
+                            "action_id": "gsheet_json",
+                            "placeholder": {
+                                "type": "plain_text",
+                                "text": "Pick a file ...",
+                                "emoji": true
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "type": "plain_text",
+                                        "text": "My example spreadsheet",
+                                        "emoji": true
+                                    },
+                                    "value": "1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "block_id": "Ylgx",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": "To make a *new* JSON file ... \n1. Share the new Google spreadsheet with <mailto:quackbot-tbd@gmail.com|quackbot-tbd@gmail.com>\n2. Give me the sharing link for that new spreadsheet. ",
+                            "verbatim": false
+                        }
+                    }
+                ],
+                "fallback": "[no preview available]"
+            }
+        ]
+    },
+    "response_url": "https://hooks.slack.com/actions/rest-of-this-is-sekret",
+    "actions": [
+        {
+            "type": "static_select",
+            "action_id": "gsheet_json",
+            "block_id": "15/fw",
+            "selected_option": {
+                "text": {
+                    "type": "plain_text",
+                    "text": "My example spreadsheet",
+                    "emoji": true
+                },
+                "value": "1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw"
+            },
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Pick a file ...",
+                "emoji": true
+            },
+            "action_ts": "1552959948.107092"
+        }
+    ],
+    "stage": "prod",
+    "env": {
+        "slackAppVerificationToken": "sekrit",
+        "API_AI_TOKEN": "also-sekret",
+        "lambdaVersion": "prod"
+    },
+    "team_id": "T111111Z",
+    "authorization": {
+        "bot_user_id": "U4444444",
+        "bot_access_token": "xoxb-etc-etc-etc"
+    },
+    "command": {
+        "verb": "gsheet_json",
+        "predicate": "1aRfM0CPO36_HnzSE7XPKn6Xh9aFvCuwNJ-glv0I-Lnw"
     }
 }
