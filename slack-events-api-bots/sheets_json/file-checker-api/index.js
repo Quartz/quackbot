@@ -4,7 +4,7 @@ AWS.config.apiVersions = {
     s3: '2006-03-01'
 };
 
-var s3 = new AWS.S3();
+var s3 = new AWS.S3({signatureVersion: 'v4'});
 var s3_bucket = "quack-gsheet-jsons";
 
 // var bucket = process.ENV.S3_BUCKET;
