@@ -21,7 +21,7 @@
     "pg": "^6.4.2",
     "request": "^2.82.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.11.1",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^3.0.0"
   }
 }
