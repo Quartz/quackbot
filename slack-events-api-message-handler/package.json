@@ -4,13 +4,13 @@
   "description": "Validates and handles incoming events from Slack",
   "main": "index.js",
   "dependencies": {
-    "claudia": "^2.14.2",
+    "claudia": "^5.14.1",
     "pg": "^6.4.2",
     "request": "^2.83.0",
     "sequelize": "^4.13.2"
   },
   "devDependencies": {
-    "claudia": "^2.14.2"
+    "claudia": "^5.14.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
